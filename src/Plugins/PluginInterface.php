@@ -4,7 +4,7 @@
 namespace Plugins;
 
 
-interface PluginInterface  #А нужен ли он?
+interface PluginInterface  #функция запуска, возвращаем PluginOutput
 {
 
 }
