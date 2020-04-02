@@ -1,0 +1,25 @@
+#Phalyfusion config
+
+plugins:
+    usePlugins:
+        - phan
+        - phpstan
+        - psalm
+    phan: phan wtf kek -key -key2 -ololo
+    phpstan: phpstan wtf kek -key -key2 -ololo
+    psalm: psalm wtf kek -key -key2 -ololo
+
+
+#php:
+#	date.timezone: Europe/Prague
+#	zlib.output_compression: true  # use gzip
+#
+#database:
+#	driver: mysql
+#	username: root
+#	password: beruska92
+#
+#users:
+#	- Dave
+#	- Kryten
+#	- Rimmer

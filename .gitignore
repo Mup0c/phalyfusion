@@ -1,5 +1,7 @@
 /composer.json
 /Vendor/
+/bin/
+
 .DS_Store
 .idea
 .env
