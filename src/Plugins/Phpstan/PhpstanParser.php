@@ -1,12 +1,12 @@
 <?php
 
 
-namespace Plugins\Phpstan;
+namespace Phalyfusion\Plugins\Phpstan;
 
 
 /**
  * Class PhpstanParser
- * @package Plugins\Phpstan
+ * @package Phalyfusion\Plugins\Phpstan
  */
 class PhpstanParser
 {

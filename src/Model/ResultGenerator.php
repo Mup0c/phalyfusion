@@ -1,12 +1,12 @@
 <?php
 
 
-namespace Model;
+namespace Phalyfusion\Model;
 
 
 /**
  * Class ResultGenerator
- * @package Model
+ * @package Phalyfusion\Model
  */
 class ResultGenerator
 {

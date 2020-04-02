@@ -1,5 +1,5 @@
 /composer.json
-/Vendor/
+/vendor/
 /bin/
 
 .DS_Store

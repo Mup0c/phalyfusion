@@ -1,13 +1,15 @@
 <?php
 
 
-namespace Plugins\Phpstan;
+namespace Phalyfusion\Plugins\Phpstan;
 
-use Plugins\PluginInterface;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
+use Phalyfusion\Plugins\PluginInterface;
 
 /**
  * Class PhpstanRunner
- * @package Plugins\Phpstan
+ * @package Phalyfusion\Plugins\Phpstan
  */
 class PhpstanRunner implements PluginInterface
 {
@@ -34,5 +36,13 @@ class PhpstanRunner implements PluginInterface
     public static function get_name()
     {
         return self::name;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function run()
+    {
+        // TODO: Implement run() method.
     }
 }

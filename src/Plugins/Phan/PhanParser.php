@@ -1,12 +1,12 @@
 <?php
 
 
-namespace Plugins\Phan;
+namespace Phalyfusion\Plugins\Phan;
 
 
 /**
  * Class PhanParser
- * @package Plugins\Phan
+ * @package Phalyfusion\Plugins\Phan
  */
 class PhanParser
 {

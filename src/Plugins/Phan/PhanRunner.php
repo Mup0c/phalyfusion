@@ -1,12 +1,15 @@
 <?php
 
-namespace Plugins\Phan;
 
-use Plugins\PluginInterface;
+namespace Phalyfusion\Plugins\Phan;
+
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
+use Phalyfusion\Plugins\PluginInterface;
 
 /**
  * Class PhanRunner
- * @package Plugins\Phan
+ * @package Phalyfusion\Plugins\Phan
  */
 class PhanRunner implements PluginInterface
 {
@@ -33,5 +36,13 @@ class PhanRunner implements PluginInterface
     public static function get_name()
     {
         return self::name;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function run()
+    {
+        // TODO: Implement run() method.
     }
 }

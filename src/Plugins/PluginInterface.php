@@ -1,14 +1,15 @@
 <?php
 
 
-namespace Plugins;
+namespace Phalyfusion\Plugins;
 
+use Phalyfusion\Model\PluginOutput;
 
 /**
  * Interface PluginInterface
- * @package Plugins
+ * @package Phalyfusion\Plugins
  */
-interface PluginInterface  #TODO: func run, return PluginOutput.
+interface PluginInterface
 {
     /**
      * @return string
@@ -19,5 +20,10 @@ interface PluginInterface  #TODO: func run, return PluginOutput.
      * @param string $run_command
      */
     public function __construct($run_command);
+
+    /**
+     * @return PluginOutput
+     */
+    public function run();
 
 }

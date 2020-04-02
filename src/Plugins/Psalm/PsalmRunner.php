@@ -1,13 +1,15 @@
 <?php
 
 
-namespace Plugins\Psalm;
+namespace Phalyfusion\Plugins\Psalm;
 
-use Plugins\PluginInterface;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
+use Phalyfusion\Plugins\PluginInterface;
 
 /**
  * Class PsalmRunner
- * @package Plugins\Psalm
+ * @package Phalyfusion\Plugins\Psalm
  */
 class PsalmRunner implements PluginInterface
 {
@@ -34,5 +36,13 @@ class PsalmRunner implements PluginInterface
     public static function get_name()
     {
         return self::name;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function run()
+    {
+        // TODO: Implement run() method.
     }
 }

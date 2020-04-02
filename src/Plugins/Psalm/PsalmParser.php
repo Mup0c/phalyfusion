@@ -1,12 +1,12 @@
 <?php
 
 
-namespace Plugins\Psalm;
+namespace Phalyfusion\Plugins\Psalm;
 
 
 /**
  * Class PsalmParser
- * @package Plugins\Psalm
+ * @package Phalyfusion\Plugins\Psalm
  */
 class PsalmParser
 {
