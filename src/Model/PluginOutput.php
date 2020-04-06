@@ -13,7 +13,7 @@ class PluginOutput
     /**
      * @var string
      */
-    private string $output;
+    public string $output;
 
     /**
      * PluginOutput constructor.

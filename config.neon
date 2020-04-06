@@ -8,6 +8,12 @@ plugins:
     phan: phan wtf kek -key -key2 -ololo
     phpstan: phpstan wtf kek -key -key2 -ololo
     psalm: psalm wtf kek -key -key2 -ololo
+#
+#    phpstan:
+#        bin: phpstan -e --config=/path/to/myconfig.php
+#
+#    phan:
+#        bin: /usr/local/phan -S
 
 
 #php:

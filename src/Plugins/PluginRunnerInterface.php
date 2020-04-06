@@ -6,20 +6,15 @@ namespace Phalyfusion\Plugins;
 use Phalyfusion\Model\PluginOutput;
 
 /**
- * Interface PluginInterface
+ * Interface PluginRunnerInterface
  * @package Phalyfusion\Plugins
  */
-interface PluginInterface
+interface PluginRunnerInterface
 {
     /**
      * @return string
      */
-    public static function get_name();
-
-    /**
-     * @param string $run_command
-     */
-    public function __construct($run_command);
+    public static function getName();
 
     /**
      * @return PluginOutput

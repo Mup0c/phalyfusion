@@ -5,13 +5,13 @@ namespace Phalyfusion\Plugins\Psalm;
 
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
-use Phalyfusion\Plugins\PluginInterface;
+use Phalyfusion\Plugins\PluginRunnerInterface;
 
 /**
  * Class PsalmRunner
  * @package Phalyfusion\Plugins\Psalm
  */
-class PsalmRunner implements PluginInterface
+class PsalmRunner implements PluginRunnerInterface
 {
     private const name = "psalm";
 
@@ -33,7 +33,7 @@ class PsalmRunner implements PluginInterface
     /**
      * @inheritDoc
      */
-    public static function get_name()
+    public static function getName()
     {
         return self::name;
     }
@@ -43,6 +43,11 @@ class PsalmRunner implements PluginInterface
      */
     public function run()
     {
-        // TODO: Implement run() method.
+        // TODO: Implement run() method. #Все-таки запускать здесь, или просто генерировать путь\ключи и запустить в ядре. Или вообще зафигачить трейт.
+        $process = new Process(['bin/psalm'],'../' );
+        $process->run();
+        echo("\n---PSALM--- \n");
+        echo $process->getErrorOutput();
+        echo $process->getOutput();
     }
 }
