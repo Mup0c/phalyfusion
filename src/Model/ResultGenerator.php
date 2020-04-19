@@ -10,5 +10,5 @@ namespace Phalyfusion\Model;
  */
 class ResultGenerator
 {
-
+    #todo: this one should be a \Console class (maybe only if we output to console)
 }

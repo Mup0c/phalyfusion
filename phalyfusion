@@ -1,0 +1,44 @@
+#!/usr/bin/env php
+<?php
+
+use Symfony\Component\Console\Application;
+use Phalyfusion\Core;
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+$rootDir = __DIR__;
+echo getcwd() . "\n";
+echo $rootDir . "\n";
+
+$application = new Application('Phalyfusion', '0.0.1');
+$command = new \Phalyfusion\Console\Command\AnalyseCommand($rootDir);
+
+$application->add($command);
+$application->setDefaultCommand($command->getName(), false);
+$application->run();
+
+
+#$kek = new Core();
+#var_dump($kek->plugins);
+
+
+#$process = new Process(['bin/phan'],'../' );
+#$process2 = new Process(['bin/phpstan', 'analyse'],'../' );
+#$process2 = new Process(['bin/psalm'],'../' );
+
+
+#$process->run();
+#$process2->run();
+
+// executes after the command finishes
+#if (!$process->isSuccessful()) {
+#    throw new ProcessFailedException($process);
+#}
+
+#echo $process->getErrorOutput();
+#echo $process->getOutput();
+#echo $process2->getOutput();
+
+#$process->clearOutput();
+#$process->clearErrorOutput();
+#echo $process->getOutput();

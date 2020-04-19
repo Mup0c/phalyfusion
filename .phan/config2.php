@@ -335,7 +335,5 @@ return [
     // A list of individual files to include in analysis
     // with a path relative to the root directory of the
     // project.
-    'file_list' => [
-        'phalyfusion',
-    ],
+    'file_list' => [],
 ];

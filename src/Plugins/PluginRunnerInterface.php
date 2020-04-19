@@ -17,8 +17,9 @@ interface PluginRunnerInterface
     public static function getName();
 
     /**
+     * @param string $runCommand
      * @return PluginOutput
      */
-    public function run();
+    public function run(string $runCommand);
 
 }

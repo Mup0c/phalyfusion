@@ -1,0 +1,11 @@
+#Phalyfusion config
+
+plugins:
+    usePlugins:
+        - phan
+        - phpstan
+        - psalm
+    runCommands:
+        phan: bin/phan -k .phan/config2.php
+        phpstan: bin/phpstan analyse -c phpstan.neon
+        psalm: bin/psalm -c psalm.xml
