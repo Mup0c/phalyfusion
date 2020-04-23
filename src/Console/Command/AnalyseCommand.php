@@ -61,6 +61,8 @@ class AnalyseCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $output->setDecorated(true);
+
         $config = $this->readConfig($input, $output);
         $usedPlugins = $config["plugins"]["usePlugins"];
         $runCommands = $config["plugins"]["runCommands"];
@@ -75,16 +77,20 @@ class AnalyseCommand extends Command
      * Parse config file
      * @param InputInterface $input
      * @param OutputInterface $output
-     * @return mixed decoded Neon config
+     * @return array decoded Neon config
      */
-    private function readConfig(InputInterface $input, OutputInterface $output) #TODO: nice error output
+    private function readConfig(InputInterface $input, OutputInterface $output): array #TODO: nice error output
     {
         $configFile = $input->getOption('config');
+        if (!file_exists($configFile))
+        {
+            $output->writeln(["<error>Config not found at $configFile</error>"]);
+            exit(1);
+        }
         $neon = file_get_contents($configFile);
         try {
             $decoded = Neon::decode($neon);
         } catch (NeonException $e) {
-            $output->setDecorated(true);
             $output->writeln(["<error>Failed parsing config ($configFile)</error>", "Error: $e"]);
             exit(1);
         }
