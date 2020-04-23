@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Phalyfusion;
 
 
@@ -57,17 +56,26 @@ class Core  #Инициализация (установка) плагинов (�
      */
     private function loadPlugins()
     {
-
-        $class_map = ClassMapGenerator::createMap($this->rootDir . '/src/Plugins');
-        foreach ($class_map as $class => $path)
+        $classMap = ClassMapGenerator::createMap($this->rootDir . '/src/Plugins');
+        foreach ($classMap as $class => $path)
         {
-            if (in_array("Phalyfusion\Plugins\PluginRunnerInterface", class_implements($class))
+            $interface = PluginRunnerInterface::class;
+            try {
+                $reflection = new \ReflectionClass($class);
+            } catch (\ReflectionException $e) {
+                echo $e;
+                exit(1);      //TODO: nice error output
+            }
+
+            if ($reflection->implementsInterface($interface)
+                && $reflection->isInstantiable()
+                #&& in_array(call_user_func($class.'::getName'), $this->usedPlugins)) // php call object method. //No. https://www.php.net/manual/en/language.oop5.static.php
+                && method_exists($class, 'getName')
                 && in_array($class::getName(), $this->usedPlugins))
             {
                 $this->plugins[] = new $class();
             }
         }
-
     }
 
     /**
