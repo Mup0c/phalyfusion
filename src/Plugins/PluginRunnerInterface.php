@@ -14,12 +14,12 @@ interface PluginRunnerInterface
     /**
      * @return string
      */
-    public static function getName();
+    public static function getName(): string;
 
     /**
      * @param string $runCommand
      * @return PluginOutput
      */
-    public function run(string $runCommand);
+    public function run(string $runCommand): PluginOutput;
 
 }

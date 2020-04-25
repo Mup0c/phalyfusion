@@ -6,6 +6,7 @@ namespace Phalyfusion\Model;
 
 /**
  * Class PluginOutput
+ * Model presenting output of the plugin
  * @package Phalyfusion\Model
  */
 class PluginOutput

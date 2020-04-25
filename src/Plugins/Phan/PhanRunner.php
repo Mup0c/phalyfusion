@@ -4,13 +4,12 @@
 namespace Phalyfusion\Plugins\Phan;
 
 use Phalyfusion\Plugins\PluginRunner;
-use Phalyfusion\Plugins\PluginRunnerInterface;
 
 /**
  * Class PhanRunner
  * @package Phalyfusion\Plugins\Phan
  */
-class PhanRunner extends PluginRunner implements PluginRunnerInterface
+class PhanRunner extends PluginRunner
 {
     private const name = "phan";
 
@@ -25,9 +24,18 @@ class PhanRunner extends PluginRunner implements PluginRunnerInterface
     /**
      * @inheritDoc
      */
-    public static function getName()
+    public static function getName(): string
     {
         return self::name;
     }
 
+    /**
+     * @inheritDoc
+     */
+    protected function prepareCommand(string $runCommand): string
+    {
+        $runCommand =  preg_replace('/(\s--output-mode(=|\s+?)|\s-m(=|\s*))(\'.*?\'|".*?"|\S+)/', '', $runCommand);
+        $runCommand = $this->addOption($runCommand, '--output-mode=checkstyle');
+        return $runCommand;
+    }
 }

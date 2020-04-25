@@ -4,13 +4,12 @@
 namespace Phalyfusion\Plugins\Phpstan;
 
 use Phalyfusion\Plugins\PluginRunner;
-use Phalyfusion\Plugins\PluginRunnerInterface;
 
 /**
  * Class PhpstanRunner
  * @package Phalyfusion\Plugins\Phpstan
  */
-class PhpstanRunner extends PluginRunner implements PluginRunnerInterface
+class PhpstanRunner extends PluginRunner
 {
     private const name = "phpstan";
 
@@ -25,9 +24,18 @@ class PhpstanRunner extends PluginRunner implements PluginRunnerInterface
     /**
      * @inheritDoc
      */
-    public static function getName()
+    public static function getName(): string
     {
         return self::name;
     }
 
+    /**
+     * @inheritDoc
+     */
+    protected function prepareCommand(string $runCommand): string
+    {
+        $runCommand =  preg_replace('/\s--error-format(=|\s+?)(\'.*?\'|".*?"|\S+)/', '', $runCommand);
+        $runCommand = $this->addOption($runCommand, '--error-format=checkstyle');
+        return $runCommand;
+    }
 }

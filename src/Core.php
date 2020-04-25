@@ -70,7 +70,7 @@ class Core  #Инициализация (установка) плагинов (�
             if ($reflection->implementsInterface($interface)
                 && $reflection->isInstantiable()
                 #&& in_array(call_user_func($class.'::getName'), $this->usedPlugins)) // php call object method. //No. https://www.php.net/manual/en/language.oop5.static.php
-                && method_exists($class, 'getName')
+                && method_exists($class, 'getName') //suppress phpstorm inspection warning next line
                 && in_array($class::getName(), $this->usedPlugins))
             {
                 $this->plugins[] = new $class();
@@ -85,7 +85,7 @@ class Core  #Инициализация (установка) плагинов (�
     {
         foreach ($this->plugins as $plugin)
         {
-            $plugin->run($this->runCommands[$plugin::getName()]);
+            $plugin->run($this->runCommands[$plugin::getName()]); #TODO: undefined index error (no run command for such plugin in config)
         }
     }
 
