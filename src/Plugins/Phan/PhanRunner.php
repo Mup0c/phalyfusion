@@ -54,7 +54,8 @@ class PhanRunner extends PluginRunner
         foreach ($decoded as $error)
         {
             $filePath = getcwd().'/'.$error['location']['path'];
-            $errorModel = new ErrorModel($error['location']['lines']['begin'], $error['description'], $error['type']);
+            $errorModel = new ErrorModel($error['location']['lines']['begin'], $error['description'],
+                                         $error['type'], self::name);
 
             if (!array_key_exists($filePath, $outputModel->files))
             {

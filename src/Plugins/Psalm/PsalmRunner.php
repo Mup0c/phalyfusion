@@ -54,7 +54,7 @@ class PsalmRunner extends PluginRunner
         foreach ($decoded as $error)
         {
             $filePath = $error['file_path'];
-            $errorModel = new ErrorModel($error['line_from'], $error['message'], $error['severity']);
+            $errorModel = new ErrorModel($error['line_from'], $error['message'], $error['severity'], self::name);
 
             if (!array_key_exists($filePath, $outputModel->files))
             {

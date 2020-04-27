@@ -53,15 +53,14 @@ abstract class PluginRunner implements PluginRunnerInterface
      */
     public function run(string $runCommand): PluginOutputModel
     {
+        $name = $this::getName();
+        echo("\n---$name--- \n");
+
         $process = Process::fromShellCommandline($this->prepareCommand($runCommand));
         $process->run();
         $output = $process->getOutput();
 
-        $name = $this::getName();
-        echo("\n---$name--- \n");
-        #echo $process->getErrorOutput(); #phpstan тэги есть, внутри пусто, phan psalm пустая строка
         echo $process->getErrorOutput(); #TODO: real-time output or progress bar
-        $a = $process->getErrorOutput();
 
         return $this->parseOutput($output);
     }

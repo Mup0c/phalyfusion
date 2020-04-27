@@ -20,7 +20,7 @@ class FileModel
     /**
      * @var ErrorModel[]
      */
-    public array $errors;
+    public array $errors = array();
 
     /**
      * FileModel constructor.

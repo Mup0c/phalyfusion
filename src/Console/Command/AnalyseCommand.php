@@ -5,6 +5,7 @@ namespace Phalyfusion\Console\Command;
 
 use Nette\Neon\Exception as NeonException;
 use Nette\Neon\Neon;
+use Phalyfusion\Console\OutputGenerator;
 use Phalyfusion\Core;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -66,10 +67,10 @@ class AnalyseCommand extends Command
         $config = $this->readConfig($input, $output);
         $usedPlugins = $config["plugins"]["usePlugins"];
         $runCommands = $config["plugins"]["runCommands"];
-        $core = new Core($this->rootDir, $usedPlugins, $runCommands);
-        var_dump($core->runPlugins());
-        #$output->writeln("OMG ANALYSED&!&!&");
-        #$output->writeln($input->getOption('config'));
+
+        $core = new Core($this->rootDir, $usedPlugins, $runCommands); #TODO: if no used plugins
+        OutputGenerator::consoleStyle($core->runPlugins(), $input, $output);
+
         return 0;
     }
 
@@ -95,6 +96,7 @@ class AnalyseCommand extends Command
             exit(1);
         }
 
+        echo "CONFIG: $configFile\n";
         return $decoded;
     }
 

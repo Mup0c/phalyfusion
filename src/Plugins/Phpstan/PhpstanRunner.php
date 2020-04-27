@@ -56,7 +56,7 @@ class PhpstanRunner extends PluginRunner
             $fileModel = new FileModel($filePath);
             foreach ($errors['messages'] as $error)
             {
-                $errorModel = new ErrorModel($error['line'], $error['message'], 'error');
+                $errorModel = new ErrorModel($error['line'], $error['message'], 'error', self::name);
                 $fileModel->errors[] = $errorModel;
             }
             $outputModel->files[$fileModel->path] = $fileModel;
