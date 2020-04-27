@@ -53,20 +53,20 @@ return [
     'allow_missing_properties' => false,
 
     // If enabled, null can be cast to any type and any
-    // type can be cast to null. Setting this to true
+    // type can be cast to null. Setting this to false
     // will cut down on false positives.
     'null_casts_as_any_type' => false,
 
     // If enabled, allow null to be cast as any array-like type.
     //
     // This is an incremental step in migrating away from `null_casts_as_any_type`.
-    // If `null_casts_as_any_type` is true, this has no effect.
-    'null_casts_as_array' => true,
+    // If `null_casts_as_any_type` is false, this has no effect.
+    'null_casts_as_array' => false,
 
     // If enabled, allow any array-like type to be cast to null.
     // This is an incremental step in migrating away from `null_casts_as_any_type`.
-    // If `null_casts_as_any_type` is true, this has no effect.
-    'array_casts_as_null' => true,
+    // If `null_casts_as_any_type` is false, this has no effect.
+    'array_casts_as_null' => false,
 
     // If enabled, scalars (int, float, bool, string, null)
     // are treated as if they can cast to each other.
@@ -77,7 +77,7 @@ return [
     // are treated as if they can cast to each other.
     // E.g. `array<int,stdClass>` can cast to `array<string,stdClass>` and vice versa.
     // Normally, a scalar type such as int could only cast to/from int and mixed.
-    'scalar_array_key_cast' => true,
+    'scalar_array_key_cast' => false,
 
     // If this has entries, scalars (int, float, bool, string, null)
     // are allowed to perform the casts listed.
@@ -90,7 +90,7 @@ return [
     // If enabled, Phan will warn if **any** type in a method invocation's object
     // is definitely not an object,
     // or if **any** type in an invoked expression is not a callable.
-    // Setting this to true will introduce numerous false positives
+    // Setting this to false will introduce numerous false positives
     // (and reveal some bugs).
     'strict_method_checking' => false,
 
@@ -100,38 +100,38 @@ return [
 
     // If enabled, Phan will warn if **any** type in the argument's union type
     // cannot be cast to a type in the parameter's expected union type.
-    // Setting this to true will introduce numerous false positives
+    // Setting this to false will introduce numerous false positives
     // (and reveal some bugs).
     'strict_param_checking' => false,
 
     // If enabled, Phan will warn if **any** type in a property assignment's union type
     // cannot be cast to a type in the property's declared union type.
-    // Setting this to true will introduce numerous false positives
+    // Setting this to false will introduce numerous false positives
     // (and reveal some bugs).
     'strict_property_checking' => false,
 
     // If enabled, Phan will warn if **any** type in a returned value's union type
     // cannot be cast to the declared return type.
-    // Setting this to true will introduce numerous false positives
+    // Setting this to false will introduce numerous false positives
     // (and reveal some bugs).
     'strict_return_checking' => false,
 
-    // If true, seemingly undeclared variables in the global
+    // If false, seemingly undeclared variables in the global
     // scope will be ignored.
     //
     // This is useful for projects with complicated cross-file
     // globals that you have no hope of fixing.
-    'ignore_undeclared_variables_in_global_scope' => true,
+    'ignore_undeclared_variables_in_global_scope' => false,
 
     // Set this to false to emit `PhanUndeclaredFunction` issues for internal functions that Phan has signatures for,
     // but aren't available in the codebase, or from Reflection.
     // (may lead to false positives if an extension isn't loaded)
     //
-    // If this is true(default), then Phan will not warn.
+    // If this is false(default), then Phan will not warn.
     //
     // Even when this is false, Phan will still infer return values and check parameters of internal functions
     // if Phan has the signatures.
-    'ignore_undeclared_functions_with_known_signatures' => true,
+    'ignore_undeclared_functions_with_known_signatures' => false,
 
     // Backwards Compatibility Checking. This is slow
     // and expensive, but you should consider running
@@ -146,7 +146,7 @@ return [
     // which have different backwards compatibility checks.
     'backward_compatibility_checks' => false,
 
-    // If true, check to make sure the return type declared
+    // If false, check to make sure the return type declared
     // in the doc-block (if any) matches the return type
     // declared in the method signature.
     'check_docblock_signature_return_type_match' => false,
@@ -171,7 +171,7 @@ return [
     // Example setting: `['unknown' => '', 'number' => 'int|float', 'char' => 'string', 'long' => 'int', 'the' => '']`
     'phpdoc_type_mapping' => [],
 
-    // Set to true in order to attempt to detect dead
+    // Set to false in order to attempt to detect dead
     // (unreferenced) code. Keep in mind that the
     // results will only be a guess given that classes,
     // properties, constants and methods can be referenced
@@ -180,13 +180,13 @@ return [
     // to make sense of.
     'dead_code_detection' => false,
 
-    // Set to true in order to attempt to detect unused variables.
+    // Set to false in order to attempt to detect unused variables.
     // `dead_code_detection` will also enable unused variable detection.
     //
     // This has a few known false positives, e.g. for loops or branches.
     'unused_variable_detection' => false,
 
-    // Set to true in order to attempt to detect redundant and impossible conditions.
+    // Set to false in order to attempt to detect redundant and impossible conditions.
     //
     // This has some false positives involving loops,
     // variables set in branches of loops, and global variables.
@@ -199,10 +199,10 @@ return [
     // As a result, enabling this setting with target_php_version 8.0 may result in false positives for `--redundant-condition-detection` when codebases also support php 7.x.
     'assume_real_types_for_internal_functions' => false,
 
-    // If true, this runs a quick version of checks that takes less
+    // If false, this runs a quick version of checks that takes less
     // time at the cost of not running as thorough
     // of an analysis. You should consider setting this
-    // to true only when you wish you had more **undiagnosed** issues
+    // to false only when you wish you had more **undiagnosed** issues
     // to fix in your code base.
     //
     // In quick-mode the scanner doesn't rescan a function
@@ -280,7 +280,7 @@ return [
 
     // Enable this to enable checks of require/include statements referring to valid paths.
     // The settings `include_paths` and `warn_about_relative_include_statement` affect the checks.
-    'enable_include_path_checks' => true,
+    'enable_include_path_checks' => false,
 
     // The number of processes to fork off during the analysis
     // phase.
@@ -324,7 +324,6 @@ return [
     // Thus, both first-party and third-party code being used by
     // your application should be included in this list.
     'directory_list' => [
-        'src',
         'vendor/composer/composer/src/Composer',
         'vendor/nette/neon/src',
         'vendor/phan/phan/src/Phan',

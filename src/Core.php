@@ -4,6 +4,7 @@ namespace Phalyfusion;
 
 
 use Composer\Autoload\ClassMapGenerator;
+use Phalyfusion\Model\PluginOutputModel;
 use Phalyfusion\Plugins\PluginRunnerInterface;
 
 
@@ -79,14 +80,17 @@ class Core  #Инициализация (установка) плагинов (�
     }
 
     /**
-     * Run static code analysers #TODO: Return PluginOutput[]
+     * Run static code analysers
+     * @return PluginOutputModel[]
      */
-    public function runPlugins()
+    public function runPlugins(): array
     {
+        $output = array();
         foreach ($this->plugins as $plugin)
         {
-            $plugin->run($this->runCommands[$plugin::getName()]); #TODO: undefined index error (no run command for such plugin in config)
+            $output[] = $plugin->run($this->runCommands[$plugin::getName()]); #TODO: undefined index error (no run command for such plugin in config)
         }
+        return $output;
     }
 
 }

@@ -3,7 +3,7 @@
 
 namespace Phalyfusion\Plugins;
 
-use Phalyfusion\Model\PluginOutput;
+use Phalyfusion\Model\PluginOutputModel;
 
 /**
  * Interface PluginRunnerInterface
@@ -18,8 +18,8 @@ interface PluginRunnerInterface
 
     /**
      * @param string $runCommand
-     * @return PluginOutput
+     * @return PluginOutputModel
      */
-    public function run(string $runCommand): PluginOutput;
+    public function run(string $runCommand): PluginOutputModel;
 
 }

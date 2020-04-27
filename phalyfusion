@@ -1,17 +1,18 @@
 #!/usr/bin/env php
 <?php
 
+use Phalyfusion\Console\Command\AnalyseCommand;
 use Symfony\Component\Console\Application;
 use Phalyfusion\Core;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
 $rootDir = __DIR__;
-echo getcwd() . "\n";
-echo $rootDir . "\n";
+echo 'CWD: ' . getcwd() . "\n";
+echo "ROOT: $rootDir\n";
 
 $application = new Application('Phalyfusion', '0.0.1');
-$command = new \Phalyfusion\Console\Command\AnalyseCommand($rootDir);
+$command = new AnalyseCommand($rootDir);
 
 $application->add($command);
 $application->setDefaultCommand($command->getName(), false);

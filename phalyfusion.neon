@@ -6,7 +6,6 @@ plugins:
         - phpstan
         - psalm
     runCommands:
-        phan:    bin/phan -k .phan/config2.php   --output-mode "ot sos"
-        phpstan: bin/phpstan analyse -c phpstan.neon --error-format sas
-        psalm:   "bin/psalm -c 'p salm.xml' --output-format=checkst"
-
+        phan:    bin/phan -k .phan/config.php   --output-mode "ot sos"
+        phpstan: bin/phpstan analyse -c phpstan.neon --error-format sas --level 7
+        psalm:   "bin/psalm -c 'psalm.xml' --output-format=checkst"

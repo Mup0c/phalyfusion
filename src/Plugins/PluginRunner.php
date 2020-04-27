@@ -4,7 +4,7 @@
 namespace Phalyfusion\Plugins;
 
 
-use Phalyfusion\Model\PluginOutput;
+use Phalyfusion\Model\PluginOutputModel;
 use Symfony\Component\Process\Process;
 
 /**
@@ -29,6 +29,13 @@ abstract class PluginRunner implements PluginRunnerInterface
     abstract protected function prepareCommand(string $runCommand): string;
 
     /**
+     * Parse $output of particular plugin into PluginOutputModel.
+     * @param string $output
+     * @return PluginOutputModel
+     */
+    abstract protected function parseOutput(string $output): PluginOutputModel;
+
+    /**
      * Adds $option to $runCommand before other options and arguments
      * @param string $runCommand
      * @param string $option
@@ -42,20 +49,21 @@ abstract class PluginRunner implements PluginRunnerInterface
 
     /**
      * @param string $runCommand
-     * @return PluginOutput
+     * @return PluginOutputModel
      */
-    public function run(string $runCommand): PluginOutput
+    public function run(string $runCommand): PluginOutputModel
     {
-        #$process = new Process(explode(' ', $this->prepareCommand($runCommand))); #TODO: quotes and spaces support
-        $process = Process::fromShellCommandline($this->prepareCommand($runCommand)); #todo DONE ?
+        $process = Process::fromShellCommandline($this->prepareCommand($runCommand));
         $process->run();
+        $output = $process->getOutput();
 
         $name = $this::getName();
         echo("\n---$name--- \n");
-        echo $process->getErrorOutput();
-        echo $process->getOutput();
+        #echo $process->getErrorOutput(); #phpstan тэги есть, внутри пусто, phan psalm пустая строка
+        echo $process->getErrorOutput(); #TODO: real-time output or progress bar
+        $a = $process->getErrorOutput();
 
-        return new PluginOutput('kek');
+        return $this->parseOutput($output);
     }
 
 }

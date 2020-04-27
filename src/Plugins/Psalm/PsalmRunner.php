@@ -3,6 +3,9 @@
 
 namespace Phalyfusion\Plugins\Psalm;
 
+use Phalyfusion\Model\ErrorModel;
+use Phalyfusion\Model\FileModel;
+use Phalyfusion\Model\PluginOutputModel;
 use Phalyfusion\Plugins\PluginRunner;
 
 /**
@@ -11,6 +14,7 @@ use Phalyfusion\Plugins\PluginRunner;
  */
 class PsalmRunner extends PluginRunner
 {
+
     private const name = "psalm";
 
     /**
@@ -34,10 +38,33 @@ class PsalmRunner extends PluginRunner
      */
     protected function prepareCommand(string $runCommand): string
     {
-        #$option = '--output-format=checkstyle';
-        #$runCommand = preg_replace('/--output-format=(\'.*?\'|".*?"|\S+)/', $option, $runCommand, -1, $count);
         $runCommand = preg_replace('/\s--output-format=(\'.*?\'|".*?"|\S+)/', '', $runCommand);
-        $runCommand = $this->addOption($runCommand, '--output-format=checkstyle');
+        $runCommand = $this->addOption($runCommand, '--output-format=json');
         return $runCommand;
     }
+
+    /**
+     * @inheritDoc
+     */
+    protected function parseOutput(string $output): PluginOutputModel
+    {
+        $outputModel = new PluginOutputModel();
+
+        $decoded = json_decode($output, true);
+        foreach ($decoded as $error)
+        {
+            $filePath = $error['file_path'];
+            $errorModel = new ErrorModel($error['line_from'], $error['message'], $error['severity']);
+
+            if (!array_key_exists($filePath, $outputModel->files))
+            {
+                $outputModel->files[$filePath] = new FileModel($filePath);
+            }
+
+            $outputModel->files[$filePath]->errors[] = $errorModel;
+        }
+
+        return $outputModel;
+    }
+
 }

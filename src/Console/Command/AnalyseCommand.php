@@ -67,7 +67,7 @@ class AnalyseCommand extends Command
         $usedPlugins = $config["plugins"]["usePlugins"];
         $runCommands = $config["plugins"]["runCommands"];
         $core = new Core($this->rootDir, $usedPlugins, $runCommands);
-        $core->runPlugins();
+        var_dump($core->runPlugins());
         #$output->writeln("OMG ANALYSED&!&!&");
         #$output->writeln($input->getOption('config'));
         return 0;
@@ -84,7 +84,7 @@ class AnalyseCommand extends Command
         $configFile = $input->getOption('config');
         if (!file_exists($configFile))
         {
-            $output->writeln(["<error>Config not found at $configFile</error>"]);
+            $output->writeln("<error>Config not found at $configFile</error>");
             exit(1);
         }
         $neon = file_get_contents($configFile);
