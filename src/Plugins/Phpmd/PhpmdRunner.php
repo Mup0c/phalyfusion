@@ -4,6 +4,7 @@
 namespace Phalyfusion\Plugins\Phpmd;
 
 
+use Phalyfusion\Console\IOHandler;
 use Phalyfusion\Model\ErrorModel;
 use Phalyfusion\Model\PluginOutputModel;
 use Phalyfusion\Plugins\PluginRunner;
@@ -16,6 +17,14 @@ class PhpmdRunner extends PluginRunner
 {
 
     private const name = "phpmd";
+
+    /**
+     * PhpmdRunner constructor.
+     */
+    public function __construct()
+    {
+        IOHandler::debug('Hello, PHPMD!');
+    }
 
     /**
      * @inheritDoc
