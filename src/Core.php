@@ -4,6 +4,7 @@ namespace Phalyfusion;
 
 
 use Composer\Autoload\ClassMapGenerator;
+use Phalyfusion\Console\IOHandler;
 use Phalyfusion\Model\PluginOutputModel;
 use Phalyfusion\Plugins\PluginRunnerInterface;
 
@@ -64,8 +65,8 @@ class Core  #Инициализация (установка) плагинов (�
             try {
                 $reflection = new \ReflectionClass($class);
             } catch (\ReflectionException $e) {
-                echo $e;
-                exit(1);      //TODO: nice error output
+                IOHandler::error('Failed creating ReflectionClass', $e);
+                exit(1);
             }
 
             if ($reflection->implementsInterface($interface)

@@ -3,6 +3,7 @@
 
 namespace Phalyfusion\Plugins\Psalm;
 
+use Phalyfusion\Console\IOHandler;
 use Phalyfusion\Model\ErrorModel;
 use Phalyfusion\Model\PluginOutputModel;
 use Phalyfusion\Plugins\PluginRunner;
@@ -21,7 +22,7 @@ class PsalmRunner extends PluginRunner
      */
     public function __construct()
     {
-        echo("Hello, Psalm!\n");
+        IOHandler::debug('Hello, Psalm!');
     }
 
     /**

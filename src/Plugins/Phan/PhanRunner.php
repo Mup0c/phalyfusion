@@ -3,6 +3,7 @@
 
 namespace Phalyfusion\Plugins\Phan;
 
+use Phalyfusion\Console\IOHandler;
 use Phalyfusion\Model\ErrorModel;
 use Phalyfusion\Model\PluginOutputModel;
 use Phalyfusion\Plugins\PluginRunner;
@@ -21,7 +22,7 @@ class PhanRunner extends PluginRunner
      */
     public function __construct()
     {
-        echo("Hello, Phan!\n");
+        IOHandler::debug('Hello, Phan!');
     }
 
     /**

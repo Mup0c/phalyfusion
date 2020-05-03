@@ -5,6 +5,7 @@ namespace Phalyfusion\Console\Command;
 
 use Nette\Neon\Exception as NeonException;
 use Nette\Neon\Neon;
+use Phalyfusion\Console\IOHandler;
 use Phalyfusion\Console\OutputGenerator;
 use Phalyfusion\Core;
 use Symfony\Component\Console\Command\Command;
@@ -62,9 +63,12 @@ class AnalyseCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->setDecorated(true);
+        IOHandler::initialize($input, $output);
 
-        $config = $this->readConfig($input, $output);
+        IOHandler::debug('CWD: ' . getcwd());
+        IOHandler::debug('ROOT: '. $this->rootDir);
+
+        $config = $this->readConfig();
         $usedPlugins = $config["plugins"]["usePlugins"];
         $runCommands = $config["plugins"]["runCommands"];
 
@@ -76,27 +80,25 @@ class AnalyseCommand extends Command
 
     /**
      * Parse config file
-     * @param InputInterface $input
-     * @param OutputInterface $output
      * @return array decoded Neon config
      */
-    private function readConfig(InputInterface $input, OutputInterface $output): array #TODO: nice error output
+    private function readConfig(): array #TODO: nice error output
     {
-        $configFile = $input->getOption('config');
+        $configFile = IOHandler::$input->getOption('config');
         if (!file_exists($configFile))
         {
-            $output->writeln("<error>Config not found at $configFile</error>");
+            IOHandler::error("Config not found at $configFile");
             exit(1);
         }
         $neon = file_get_contents($configFile);
         try {
             $decoded = Neon::decode($neon);
         } catch (NeonException $e) {
-            $output->writeln(["<error>Failed parsing config ($configFile)</error>", "Error: $e"]);
+            IOHandler::error("Failed parsing config ($configFile)", $e);
             exit(1);
         }
 
-        echo "CONFIG: $configFile\n";
+        IOHandler::debug("CONFIG: $configFile");
         return $decoded;
     }
 

@@ -65,7 +65,7 @@ class OutputGenerator
                 $rows[] = [$errorModel->getLine(), $errorModel->getPluginName(), $errorModel->getMessage()];
                 $errorCount++;
             }
-            $io->table(['Line', 'Plugin', $fileModel->getPath()], $rows);
+            IOHandler::$io->table(['Line', 'Plugin', $fileModel->getPath()], $rows);
         }
 
         $io->error("$errorCount errors found!");

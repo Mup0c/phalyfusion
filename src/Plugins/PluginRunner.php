@@ -4,6 +4,7 @@
 namespace Phalyfusion\Plugins;
 
 
+use Phalyfusion\Console\IOHandler;
 use Phalyfusion\Model\PluginOutputModel;
 use Symfony\Component\Process\Process;
 
@@ -54,14 +55,19 @@ abstract class PluginRunner implements PluginRunnerInterface
     public function run(string $runCommand): PluginOutputModel
     {
         $name = $this::getName();
-        echo("\n---$name--- \n");
+        $runCommand = $this->prepareCommand($runCommand);
 
-        $process = Process::fromShellCommandline($this->prepareCommand($runCommand));
-        $process->run();
+        IOHandler::debug("---$name---");
+        IOHandler::debug("$runCommand");
+
+        $process = Process::fromShellCommandline($runCommand);
+        $process->run(function ($type, $buffer) {
+            if (Process::ERR === $type) {
+                IOHandler::debug($buffer, false);
+            }
+        });
+
         $output = $process->getOutput();
-
-        echo $process->getErrorOutput(); #TODO: real-time output or progress bar
-
         return $this->parseOutput($output);
     }
 
