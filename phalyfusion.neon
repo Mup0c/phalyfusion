@@ -5,7 +5,9 @@ plugins:
         - phan
         - phpstan
         - psalm
+        - phpmd
     runCommands:
         phan:    bin/phan -k .phan/config.php   --output-mode "ot sos"
         phpstan: bin/phpstan analyse -c phpstan.neon --error-format sas --level 7
         psalm:   "bin/psalm -c 'psalm.xml' --output-format=checkst"
+        phpmd:   bin/phpmd src jsosni cleancode
