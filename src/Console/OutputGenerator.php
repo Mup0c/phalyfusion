@@ -4,6 +4,7 @@
 namespace Phalyfusion\Console;
 
 
+use Phalyfusion\Model\ErrorModel;
 use Phalyfusion\Model\PluginOutputModel;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -34,6 +35,15 @@ class OutputGenerator
                 $resultModel->setFiles($resultFiles);
             }
         }
+
+        $resultFiles = $resultModel->getFiles();
+        foreach ($resultFiles as $fileModel)
+        {
+            $errors = $fileModel->getErrors();
+            usort($errors, fn(ErrorModel $a, ErrorModel $b) => $a->getLine() - $b->getLine());
+            $fileModel->setErrors($errors);
+        }
+        $resultModel->setFiles($resultFiles);
 
         return $resultModel;
     }
