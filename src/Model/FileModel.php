@@ -15,12 +15,52 @@ class FileModel
     /**
      * @var string
      */
-    public string $path;
+    private string $path;
 
     /**
      * @var ErrorModel[]
      */
-    public array $errors = array();
+    private array $errors = array();
+
+    /**
+     * @return string
+     */
+    public function getPath(): string
+    {
+        return $this->path;
+    }
+
+    /**
+     * @param string $path
+     */
+    public function setPath(string $path): void
+    {
+        $this->path = $path;
+    }
+
+    /**
+     * @return ErrorModel[]
+     */
+    public function getErrors(): array
+    {
+        return $this->errors;
+    }
+
+    /**
+     * @param ErrorModel[] $errors
+     */
+    public function setErrors(array $errors): void
+    {
+        $this->errors = $errors;
+    }
+
+    /**
+     * @param ErrorModel $errorModel
+     */
+    public function appendError(ErrorModel $errorModel): void
+    {
+        $this->errors[] = $errorModel;
+    }
 
     /**
      * FileModel constructor.

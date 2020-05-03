@@ -16,6 +16,45 @@ class PluginOutputModel
      * $files = ['<fileName>' => FileModel]
      * @var FileModel[]
      */
-    public array $files = array();
+    private array $files = array();
+
+    /**
+     * $files = ['<fileName>' => FileModel]
+     * @return FileModel[]
+     */
+    public function getFiles(): array
+    {
+        return $this->files;
+    }
+
+    /**
+     * $files = ['<fileName>' => FileModel]
+     * @param FileModel[] $files
+     */
+    public function setFiles(array $files): void
+    {
+        $this->files = $files;
+    }
+
+    /**
+     * @param string $filePath
+     * @param ErrorModel $errorModel
+     */
+    public function appendError(string $filePath, ErrorModel $errorModel): void
+    {
+        $this->appendFileIfNotExists($filePath);
+        $this->files[$filePath]->appendError($errorModel);
+    }
+
+    /**
+     * @param string $filePath
+     */
+    public function appendFileIfNotExists(string $filePath): void
+    {
+        if (!array_key_exists($filePath, $this->files))
+        {
+            $this->files[$filePath] = new FileModel($filePath);
+        }
+    }
 
 }

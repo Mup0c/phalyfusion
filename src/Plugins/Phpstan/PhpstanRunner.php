@@ -4,7 +4,6 @@
 namespace Phalyfusion\Plugins\Phpstan;
 
 use Phalyfusion\Model\ErrorModel;
-use Phalyfusion\Model\FileModel;
 use Phalyfusion\Model\PluginOutputModel;
 use Phalyfusion\Plugins\PluginRunner;
 
@@ -53,13 +52,11 @@ class PhpstanRunner extends PluginRunner
         $decoded = json_decode($output, true);
         foreach ($decoded['files'] as $filePath => $errors)
         {
-            $fileModel = new FileModel($filePath);
             foreach ($errors['messages'] as $error)
             {
                 $errorModel = new ErrorModel($error['line'], $error['message'], 'error', self::name);
-                $fileModel->errors[] = $errorModel;
+                $outputModel->appendError($filePath, $errorModel);
             }
-            $outputModel->files[$fileModel->path] = $fileModel;
         }
 
         return $outputModel;

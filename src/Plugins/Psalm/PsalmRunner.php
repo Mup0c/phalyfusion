@@ -4,7 +4,6 @@
 namespace Phalyfusion\Plugins\Psalm;
 
 use Phalyfusion\Model\ErrorModel;
-use Phalyfusion\Model\FileModel;
 use Phalyfusion\Model\PluginOutputModel;
 use Phalyfusion\Plugins\PluginRunner;
 
@@ -55,13 +54,7 @@ class PsalmRunner extends PluginRunner
         {
             $filePath = $error['file_path'];
             $errorModel = new ErrorModel($error['line_from'], $error['message'], $error['severity'], self::name);
-
-            if (!array_key_exists($filePath, $outputModel->files))
-            {
-                $outputModel->files[$filePath] = new FileModel($filePath);
-            }
-
-            $outputModel->files[$filePath]->errors[] = $errorModel;
+            $outputModel->appendError($filePath, $errorModel);
         }
 
         return $outputModel;

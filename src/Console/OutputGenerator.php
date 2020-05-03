@@ -4,7 +4,6 @@
 namespace Phalyfusion\Console;
 
 
-use Phalyfusion\Model\FileModel;
 use Phalyfusion\Model\PluginOutputModel;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -26,14 +25,13 @@ class OutputGenerator
         $resultModel = new PluginOutputModel();
         foreach ($outputModels as $model)
         {
-            foreach ($model->files as $filePath => $fileModel)
+            foreach ($model->getFiles() as $filePath => $fileModel)
             {
-                if (!array_key_exists($filePath, $resultModel->files))
-                {
-                    $resultModel->files[$filePath] = new FileModel($filePath);
-                }
-                $resultModel->files[$filePath]->errors = array_merge($resultModel->files[$filePath]->errors,
-                                                                     $fileModel->errors);
+                $resultModel->appendFileIfNotExists($filePath);
+                $resultFiles = $resultModel->getFiles();
+                $resultFiles[$filePath]->setErrors(array_merge($resultFiles[$filePath]->getErrors(),
+                                                               $fileModel->getErrors()));
+                $resultModel->setFiles($resultFiles);
             }
         }
 
@@ -53,22 +51,21 @@ class OutputGenerator
         $errorCount = 0;
 
         $io->title(' ~~ Phalyfusion! ~~ ');
-
-        if (!$model->files)
+        if (!$model->getFiles())
         {
             $io->success('No errors found!');
             return 0;
         }
 
-        foreach ($model->files as $fileModel)
+        foreach ($model->getFiles() as $fileModel)
         {
             $rows = array();
-            foreach ($fileModel->errors as $errorModel)
+            foreach ($fileModel->getErrors() as $errorModel)
             {
-                $rows[] = [$errorModel->line, $errorModel->pluginName, $errorModel->message];
+                $rows[] = [$errorModel->getLine(), $errorModel->getPluginName(), $errorModel->getMessage()];
                 $errorCount++;
             }
-            $io->table(['Line', 'Plugin', $fileModel->path], $rows);
+            $io->table(['Line', 'Plugin', $fileModel->getPath()], $rows);
         }
 
         $io->error("$errorCount errors found!");

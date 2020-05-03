@@ -55,7 +55,7 @@ class Core  #Инициализация (установка) плагинов (�
     /**
      * Create instances of plugins classes stated in config
      */
-    private function loadPlugins()
+    private function loadPlugins(): void
     {
         $classMap = ClassMapGenerator::createMap($this->rootDir . '/src/Plugins');
         foreach ($classMap as $class => $path)

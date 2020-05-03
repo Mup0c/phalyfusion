@@ -4,7 +4,6 @@
 namespace Phalyfusion\Plugins\Phan;
 
 use Phalyfusion\Model\ErrorModel;
-use Phalyfusion\Model\FileModel;
 use Phalyfusion\Model\PluginOutputModel;
 use Phalyfusion\Plugins\PluginRunner;
 
@@ -56,13 +55,7 @@ class PhanRunner extends PluginRunner
             $filePath = getcwd().'/'.$error['location']['path'];
             $errorModel = new ErrorModel($error['location']['lines']['begin'], $error['description'],
                                          $error['type'], self::name);
-
-            if (!array_key_exists($filePath, $outputModel->files))
-            {
-                $outputModel->files[$filePath] = new FileModel($filePath);
-            }
-
-            $outputModel->files[$filePath]->errors[] = $errorModel;
+            $outputModel->appendError($filePath, $errorModel);
         }
 
         return $outputModel;
