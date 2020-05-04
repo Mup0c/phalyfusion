@@ -6,9 +6,7 @@ namespace Phalyfusion\Console;
 
 use Phalyfusion\Model\ErrorModel;
 use Phalyfusion\Model\PluginOutputModel;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Style\SymfonyStyle;
+
 
 /**
  * Class OutputGenerator
@@ -50,20 +48,17 @@ class OutputGenerator
 
     /**
      * @param PluginOutputModel[] $outputModels
-     * @param InputInterface $input
-     * @param OutputInterface $output
      * @return int
      */
-    public static function consoleStyle(array $outputModels, InputInterface $input, OutputInterface $output): int
+    public static function consoleOutput(array $outputModels): int
     {
-        $io = new SymfonyStyle($input, $output);
         $model = self::combineModels($outputModels);
         $errorCount = 0;
 
-        $io->title(' ~~ Phalyfusion! ~~ ');
+        IOHandler::$io->title(' ~~ Phalyfusion! ~~ ');
         if (!$model->getFiles())
         {
-            $io->success('No errors found!');
+            IOHandler::$io->success('No errors found!');
             return 0;
         }
 
@@ -78,7 +73,7 @@ class OutputGenerator
             IOHandler::$io->table(['Line', 'Plugin', $fileModel->getPath()], $rows);
         }
 
-        $io->error("$errorCount errors found!");
+        IOHandler::$io->error("$errorCount errors found!");
 
         return 1;
     }

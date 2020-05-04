@@ -73,7 +73,7 @@ class AnalyseCommand extends Command
         $runCommands = $config["plugins"]["runCommands"];
 
         $core = new Core($this->rootDir, $usedPlugins, $runCommands); #TODO: if no used plugins
-        OutputGenerator::consoleStyle($core->runPlugins(), $input, $output);
+        OutputGenerator::consoleOutput($core->runPlugins());
 
         return 0;
     }
