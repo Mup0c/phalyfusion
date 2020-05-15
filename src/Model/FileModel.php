@@ -4,12 +4,14 @@
 namespace Phalyfusion\Model;
 
 
+use JsonSerializable;
+
 /**
  * Class FileModel
  * Presenting error list for a file as an ErrorModel array.
  * @package Phalyfusion\Model
  */
-class FileModel
+class FileModel implements JsonSerializable
 {
 
     /**
@@ -71,4 +73,11 @@ class FileModel
         $this->path = $path;
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function jsonSerialize()
+    {
+        return get_object_vars($this);
+    }
 }

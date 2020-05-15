@@ -52,6 +52,13 @@ class AnalyseCommand extends Command
                 InputOption::VALUE_REQUIRED,
                 'Path to neon config file. phalyfusion.neon located in project root is used by default.',
                 $this->rootDir . '/phalyfusion.neon' #TODO: we really dont want to use rootDir (при подключении этой тулзы в другой проект конфиг будет в жопе vendor)
+            )
+            ->addOption(
+                'format',
+                'f',
+                InputOption::VALUE_REQUIRED,
+                'Output format. Avaliable formats: table, json',
+                'table'
             );
     }
 
@@ -73,7 +80,20 @@ class AnalyseCommand extends Command
         $runCommands = $config["plugins"]["runCommands"];
 
         $core = new Core($this->rootDir, $usedPlugins, $runCommands); #TODO: if no used plugins
-        OutputGenerator::consoleOutput($core->runPlugins());
+        switch (IOHandler::$input->getOption('format'))
+        {
+            case 'table':
+                OutputGenerator::tableOutput($core->runPlugins());
+                break;
+            case 'json':
+                OutputGenerator::jsonOutput($core->runPlugins());
+                break;
+            default:
+                $format = IOHandler::$input->getOption('format');
+                IOHandler::error("Output format $format not available. Use 'help analyse' to show available formats");
+                exit(1);
+
+        }
 
         return 0;
     }

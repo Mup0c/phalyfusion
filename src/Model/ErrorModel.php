@@ -4,12 +4,14 @@
 namespace Phalyfusion\Model;
 
 
+use JsonSerializable;
+
 /**
  * Class ErrorModel
  * Presenting error as fields that describe it
  * @package Phalyfusion\Model
  */
-class ErrorModel
+class ErrorModel implements JsonSerializable
 {
 
     /**
@@ -96,7 +98,7 @@ class ErrorModel
     {
         $this->pluginName = $pluginName;
     }
-    
+
     /**
      * ErrorModel constructor.
      * @param int $line
@@ -110,6 +112,14 @@ class ErrorModel
         $this->setMessage($message);
         $this->setType($type);
         $this->setPluginName($pluginName);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function jsonSerialize()
+    {
+        return get_object_vars($this);
     }
 
 }

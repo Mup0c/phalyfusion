@@ -4,12 +4,14 @@
 namespace Phalyfusion\Model;
 
 
+use JsonSerializable;
+
 /**
  * Class PluginOutputModel
  * Model presenting output of the plugin as FileModel for file path
  * @package Phalyfusion\Model
  */
-class PluginOutputModel
+class PluginOutputModel implements JsonSerializable
 {
 
     /**
@@ -57,4 +59,11 @@ class PluginOutputModel
         }
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function jsonSerialize()
+    {
+        return get_object_vars($this);
+    }
 }

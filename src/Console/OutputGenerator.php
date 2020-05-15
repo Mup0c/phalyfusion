@@ -50,7 +50,7 @@ class OutputGenerator
      * @param PluginOutputModel[] $outputModels
      * @return int
      */
-    public static function consoleOutput(array $outputModels): int
+    public static function tableOutput(array $outputModels): int
     {
         $model = self::combineModels($outputModels);
         $errorCount = 0;
@@ -74,6 +74,20 @@ class OutputGenerator
         }
 
         IOHandler::$io->error("$errorCount errors found!");
+
+        return 1;
+    }
+
+    public static function jsonOutput(array $outputModels): int
+    {
+        $model = self::combineModels($outputModels);
+        if (!$model->getFiles())
+        {
+            IOHandler::$io->write('{}');
+            return 0;
+        }
+
+        IOHandler::$io->write(json_encode($model));
 
         return 1;
     }

@@ -38,7 +38,7 @@ class IOHandler
     {
         self::$input = $input;
         self::$output = $output;
-        self::$output->setDecorated(true);
+        self::$output->setDecorated(!self::$input->getOption('no-ansi'));
         self::$io = new SymfonyStyle($input, $output);
 
     }
