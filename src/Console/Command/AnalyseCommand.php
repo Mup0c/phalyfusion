@@ -79,7 +79,13 @@ class AnalyseCommand extends Command
         $usedPlugins = $config["plugins"]["usePlugins"];
         $runCommands = $config["plugins"]["runCommands"];
 
-        $core = new Core($this->rootDir, $usedPlugins, $runCommands); #TODO: if no used plugins
+        if (!$usedPlugins)
+        {
+            IOHandler::error('One or more plugins should be used', "No plugins to use are stated in config");
+            exit(1);
+        }
+
+        $core = new Core($this->rootDir, $usedPlugins, $runCommands);
         switch (IOHandler::$input->getOption('format'))
         {
             case 'table':
