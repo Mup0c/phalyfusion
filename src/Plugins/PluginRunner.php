@@ -61,11 +61,16 @@ abstract class PluginRunner implements PluginRunnerInterface
         IOHandler::debug("$runCommand");
 
         $process = Process::fromShellCommandline($runCommand);
-        $process->run(function ($type, $buffer) {
-            if (Process::ERR === $type) {
-                IOHandler::debug($buffer, false);
-            }
-        });
+        try {
+            $process->run(function ($type, $buffer) {
+                if (Process::ERR === $type) {
+                    IOHandler::debug($buffer, false);
+                }
+            });
+        } catch (\Exception $e) {
+            IOHandler::error("$name run failed! Aborting.", $e);
+            exit(1);
+        }
 
         $output = $process->getOutput();
         if (!$output)
