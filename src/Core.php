@@ -89,7 +89,13 @@ class Core  #Инициализация (установка) плагинов (�
         $output = array();
         foreach ($this->plugins as $plugin)
         {
-            $output[] = $plugin->run($this->runCommands[$plugin::getName()]); #TODO: undefined index error (no run command for such plugin in config)
+            $pluginName = $plugin::getName();
+            if (!array_key_exists($pluginName, $this->runCommands))
+            {
+                IOHandler::error("$pluginName run failed!", "No run command for $pluginName provided in config");
+                continue;
+            }
+            $output[] = $plugin->run($this->runCommands[$pluginName]);
         }
         return $output;
     }
