@@ -51,7 +51,7 @@ class AnalyseCommand extends Command
                 'c',
                 InputOption::VALUE_REQUIRED,
                 'Path to neon config file. phalyfusion.neon located in project root is used by default.',
-                $this->rootDir . '/phalyfusion.neon' #TODO: we really dont want to use rootDir (при подключении этой тулзы в другой проект конфиг будет в жопе vendor)
+                'phalyfusion.neon'
             )
             ->addOption(
                 'format',
