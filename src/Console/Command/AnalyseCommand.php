@@ -102,7 +102,7 @@ class AnalyseCommand extends Command
      * Parse config file
      * @return array decoded Neon config
      */
-    private function readConfig(): array #TODO: nice error output
+    private function readConfig(): array
     {
         $configFile = IOHandler::$input->getOption('config');
         if (!file_exists($configFile))
