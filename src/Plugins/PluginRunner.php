@@ -68,6 +68,12 @@ abstract class PluginRunner implements PluginRunnerInterface
         });
 
         $output = $process->getOutput();
+        if (!$output)
+        {
+            IOHandler::error("$name run failed!", $process->getErrorOutput());
+            return new PluginOutputModel();
+        }
+
         return $this->parseOutput($output);
     }
 
