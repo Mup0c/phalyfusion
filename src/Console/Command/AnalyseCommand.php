@@ -57,7 +57,7 @@ class AnalyseCommand extends Command
                 'format',
                 'f',
                 InputOption::VALUE_REQUIRED,
-                'Output format. Avaliable formats: table, json',
+                'Output format. Avaliable formats: table, json, checkstyle',
                 'table'
             );
     }
@@ -93,6 +93,9 @@ class AnalyseCommand extends Command
                 break;
             case 'json':
                 OutputGenerator::jsonOutput($core->runPlugins());
+                break;
+            case 'checkstyle':
+                OutputGenerator::checkstyleOutput($core->runPlugins());
                 break;
             default:
                 $format = IOHandler::$input->getOption('format');

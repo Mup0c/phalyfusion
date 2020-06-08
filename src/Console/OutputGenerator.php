@@ -78,6 +78,10 @@ class OutputGenerator
         return 1;
     }
 
+    /**
+     * @param PluginOutputModel[] $outputModels
+     * @return int
+     */
     public static function jsonOutput(array $outputModels): int
     {
         $model = self::combineModels($outputModels);
@@ -90,6 +94,52 @@ class OutputGenerator
         IOHandler::$io->write(json_encode($model));
 
         return 1;
+    }
+
+    /**
+     * @param PluginOutputModel[] $outputModels
+     * @return int
+     */
+    public static function checkstyleOutput(array $outputModels): int
+    {
+        $model = self::combineModels($outputModels);
+        $output = '';
+
+        foreach ($model->getFiles() as $fileModel)
+        {
+            $output .= '<file name="' . self::escape($fileModel->getPath()) . '">' . "\n";
+            foreach ($fileModel->getErrors() as $errorModel)
+            {
+                $message = $errorModel->getPluginName() . ': ' . $errorModel->getMessage();
+                $output .= '  <error';
+                $output .= ' line="' . self::escape((string) $errorModel->getLine()) . '"';
+                $output .= ' column="1"';
+                $output .= ' severity="error"';
+                $output .= ' message="' . self::escape($message) . '"';
+                $output .= ' />' . "\n";
+            }
+            $output .= '</file>' . "\n";
+
+        }
+
+        IOHandler::$io->write('<?xml version="1.0" encoding="UTF-8"?>' . "\n");
+        IOHandler::$io->write('<checkstyle>' . "\n");
+        if ($output) {
+            IOHandler::$io->write($output);
+        }
+        IOHandler::$io->write('</checkstyle>' . "\n");
+        return !empty($model->getFiles());
+    }
+
+    /**
+     * Escapes values for using in XML
+     *
+     * @param string $string
+     * @return string
+     */
+    private static function escape(string $string): string
+    {
+        return htmlspecialchars($string, ENT_XML1 | ENT_COMPAT, 'UTF-8');
     }
 
 }
