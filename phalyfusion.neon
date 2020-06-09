@@ -1,5 +1,7 @@
 #Phalyfusion config
-
+#Note that each analyser (plugin) should be individually configured configured via it's config file.
+#All supported arguments and options can be used in the command line (runCommands)
+#TODO: readme, guide how to use tool, how to create and setup config
 plugins:
     usePlugins:
         - phan
