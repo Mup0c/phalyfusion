@@ -36,10 +36,11 @@ class PsalmRunner extends PluginRunner
     /**
      * @inheritDoc
      */
-    protected function prepareCommand(string $runCommand): string
+    protected function prepareCommand(string $runCommand, array $paths): string
     {
         $runCommand = preg_replace('/\s--output-format=(\'.*?\'|".*?"|\S+)/', '', $runCommand);
         $runCommand = $this->addOption($runCommand, '--output-format=json');
+        $runCommand .= ' ' . implode(' ', $paths);
         return $runCommand;
     }
 

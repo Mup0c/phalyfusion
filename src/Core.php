@@ -39,17 +39,25 @@ class Core  #Инициализация (установка) плагинов (�
     private string $rootDir;
 
     /**
+     * Paths with source code to run analysis on
+     * @var string[]
+     */
+    private array $paths;
+
+    /**
      * Core constructor.
      * @param string $rootDir Path to the root directory of the tool
-     * @param array $usedPlugins List of names of plugins to run
-     * @param array $runCommands Run command for each plugin
+     * @param string[] $usedPlugins List of names of plugins to run
+     * @param string[] $runCommands Run command for each plugin
+     * @param string[] $paths Paths with source code to run analysis on
      */
-    public function __construct(string $rootDir, array $usedPlugins, array $runCommands)
+    public function __construct(string $rootDir, array $usedPlugins, array $runCommands, array $paths)
     {
         $this->plugins = array();
         $this->rootDir = $rootDir;
         $this->usedPlugins = $usedPlugins;
         $this->runCommands = $runCommands;
+        $this->paths = $paths;
         $this->loadPlugins();
     }
 
@@ -95,7 +103,7 @@ class Core  #Инициализация (установка) плагинов (�
                 IOHandler::error("$pluginName run failed!", "No run command for $pluginName provided in config");
                 continue;
             }
-            $output[] = $plugin->run($this->runCommands[$pluginName]);
+            $output[] = $plugin->run($this->runCommands[$pluginName], $this->paths);
         }
         return $output;
     }

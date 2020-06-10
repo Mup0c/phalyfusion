@@ -9,6 +9,7 @@ use Phalyfusion\Console\IOHandler;
 use Phalyfusion\Console\OutputGenerator;
 use Phalyfusion\Core;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -59,6 +60,11 @@ class AnalyseCommand extends Command
                 InputOption::VALUE_REQUIRED,
                 'Output format. Avaliable formats: table, json, checkstyle',
                 'table'
+            )
+            ->addArgument(
+                'files',
+                InputArgument::IS_ARRAY | InputArgument::OPTIONAL,
+                'Paths to files with source code to run analysis on. Separate multiple with a space. Do not pass directories. File paths from command lines stated in phalyfusion.neon runCommands will be used by default'
             );
     }
 
@@ -75,6 +81,7 @@ class AnalyseCommand extends Command
         IOHandler::debug('CWD: ' . getcwd());
         IOHandler::debug('ROOT: '. $this->rootDir);
 
+        $paths = IOHandler::$input->getArgument('files');
         $config = $this->readConfig();
         $usedPlugins = $config["plugins"]["usePlugins"];
         $runCommands = $config["plugins"]["runCommands"];
@@ -85,7 +92,7 @@ class AnalyseCommand extends Command
             exit(1);
         }
 
-        $core = new Core($this->rootDir, $usedPlugins, $runCommands);
+        $core = new Core($this->rootDir, $usedPlugins, $runCommands, $paths);
         switch (IOHandler::$input->getOption('format'))
         {
             case 'table':

@@ -37,10 +37,16 @@ class PhpmdRunner extends PluginRunner
     /**
      * @inheritDoc
      */
-    protected function prepareCommand(string $runCommand): string
+    protected function prepareCommand(string $runCommand, array $paths): string
     {
         preg_match_all('/\'.*?\'|".*?"|\S+/', $runCommand, $matches);
         $matches[0][2] = 'json';
+
+        if ($paths)
+        {
+            $matches[0][1] = implode(',', $paths);
+        }
+
         $runCommand = implode(' ', $matches[0]);
         return $runCommand;
     }

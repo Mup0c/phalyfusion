@@ -36,10 +36,18 @@ class PhanRunner extends PluginRunner
     /**
      * @inheritDoc
      */
-    protected function prepareCommand(string $runCommand): string
+    protected function prepareCommand(string $runCommand, array $paths): string
     {
         $runCommand =  preg_replace('/(\s--output-mode(=|\s+?)|\s-m(=|\s*))(\'.*?\'|".*?"|\S+)/', '', $runCommand);
         $runCommand = $this->addOption($runCommand, '--output-mode=json');
+
+        if ($paths)
+        {
+            $runCommand =  preg_replace('/(\s--include-analysis-file-list(=|\s+?)|\s-m(=|\s*))(\'.*?\'|".*?"|\S+)/', '', $runCommand);
+            $runCommand =  preg_replace('/(\s-I(=|\s+?)|\s-m(=|\s*))(\'.*?\'|".*?"|\S+)/', '', $runCommand);
+            $runCommand = $this->addOption($runCommand, '--include-analysis-file-list=' . implode(',', $paths));
+        }
+
         return $runCommand;
     }
 

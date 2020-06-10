@@ -1,15 +1,19 @@
 #Phalyfusion config
 #Note that each analyser (plugin) should be individually configured configured via it's config file.
 #All supported arguments and options can be used in the command line (runCommands)
+#Output formats of analysers are overrided. To choose Phalyfusion output format use --format option when running.
+#File\path arguments of analysers are NOT overrided (except of phpmd) in case such argument is passed to Phalyfusion.
+#Do not state path/files options/arguments in runCommands (except of phpmd), use paths argument of Phalyfusion or configure it in configs.
+
 #TODO: readme, guide how to use tool, how to create and setup config
 plugins:
     usePlugins:
-        - phan
+        #- phan
         - phpstan
         - psalm
         - phpmd
     runCommands:
-        phan:    bin/phan -k .phan/config.php   --output-mode "ot sos"
+        phan:    'bin/phan -k .phan/config.php   --output-mode "ot sos" '#-I    src/Console/OutputGenerator.php --include-analysis-file-list=src/Console,kek'
         phpstan: bin/phpstan analyse -c phpstan.neon --error-format sas --level 7
         psalm:   "bin/psalm -c 'psalm.xml' --output-format=checkst"
         phpmd:   bin/phpmd src jsosni cleancode

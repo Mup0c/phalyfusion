@@ -18,8 +18,9 @@ interface PluginRunnerInterface
 
     /**
      * @param string $runCommand
+     * @param string[] $paths Paths with source code to run analysis on
      * @return PluginOutputModel
      */
-    public function run(string $runCommand): PluginOutputModel;
+    public function run(string $runCommand, array $paths): PluginOutputModel;
 
 }

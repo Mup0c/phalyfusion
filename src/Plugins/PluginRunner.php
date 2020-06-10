@@ -25,9 +25,10 @@ abstract class PluginRunner implements PluginRunnerInterface
     /**
      * Prepares given command. Makes output parseable.
      * @param string $runCommand
+     * @param string[] $paths
      * @return string
      */
-    abstract protected function prepareCommand(string $runCommand): string;
+    abstract protected function prepareCommand(string $runCommand, array $paths): string;
 
     /**
      * Parse $output of particular plugin into PluginOutputModel.
@@ -50,12 +51,13 @@ abstract class PluginRunner implements PluginRunnerInterface
 
     /**
      * @param string $runCommand
+     * @param string[] $paths
      * @return PluginOutputModel
      */
-    public function run(string $runCommand): PluginOutputModel
+    public function run(string $runCommand, array $paths): PluginOutputModel
     {
         $name = $this::getName();
-        $runCommand = $this->prepareCommand($runCommand);
+        $runCommand = $this->prepareCommand($runCommand, $paths);
 
         IOHandler::debug("---$name---");
         IOHandler::debug("$runCommand");
