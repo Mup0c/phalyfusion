@@ -77,8 +77,7 @@ abstract class PluginRunner implements PluginRunnerInterface
         $output = $process->getOutput();
         if (!$output)
         {
-            IOHandler::error("$name run failed! Aborting.", $process->getErrorOutput());
-            exit(1);
+            IOHandler::error("$name run seems to be failed! Empty output.", $process->getErrorOutput());
         }
 
         return $this->parseOutput($output);

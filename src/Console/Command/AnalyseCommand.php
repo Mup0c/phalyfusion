@@ -137,5 +137,4 @@ class AnalyseCommand extends Command
         IOHandler::debug("CONFIG: $configFile");
         return $decoded;
     }
-
 }

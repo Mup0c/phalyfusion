@@ -44,6 +44,9 @@ class PhpmdRunner extends PluginRunner
 
         if ($paths)
         {
+            foreach ($paths as &$path) {
+                $path = "'$path'" ;
+            }
             $matches[0][1] = implode(',', $paths);
         }
 
@@ -59,12 +62,15 @@ class PhpmdRunner extends PluginRunner
         $outputModel = new PluginOutputModel();
 
         $decoded = json_decode($output, true);
-        foreach ($decoded['files'] as $file)
+        if ($decoded)
         {
-            foreach ($file['violations'] as $error)
+            foreach ($decoded['files'] as $file)
             {
-                $errorModel = new ErrorModel($error['beginLine'], $error['description'], 'error', self::name);
-                $outputModel->appendError($file['file'], $errorModel);
+                foreach ($file['violations'] as $error)
+                {
+                    $errorModel = new ErrorModel($error['beginLine'], $error['description'], 'error', self::name);
+                    $outputModel->appendError($file['file'], $errorModel);
+                }
             }
         }
 

@@ -8,7 +8,7 @@
 #TODO: readme, guide how to use tool, how to create and setup config
 plugins:
     usePlugins:
-        #- phan
+        - phan
         - phpstan
         - psalm
         - phpmd

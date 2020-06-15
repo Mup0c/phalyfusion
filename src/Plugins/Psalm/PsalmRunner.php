@@ -40,6 +40,9 @@ class PsalmRunner extends PluginRunner
     {
         $runCommand = preg_replace('/\s--output-format=(\'.*?\'|".*?"|\S+)/', '', $runCommand);
         $runCommand = $this->addOption($runCommand, '--output-format=json');
+        foreach ($paths as &$path) {
+            $path = "'$path'" ;
+        }
         $runCommand .= ' ' . implode(' ', $paths);
         return $runCommand;
     }
@@ -52,11 +55,14 @@ class PsalmRunner extends PluginRunner
         $outputModel = new PluginOutputModel();
 
         $decoded = json_decode($output, true);
-        foreach ($decoded as $error)
+        if ($decoded)
         {
-            $filePath = $error['file_path'];
-            $errorModel = new ErrorModel($error['line_from'], $error['message'], $error['severity'], self::name);
-            $outputModel->appendError($filePath, $errorModel);
+            foreach ($decoded as $error)
+            {
+                $filePath = $error['file_path'];
+                $errorModel = new ErrorModel($error['line_from'], $error['message'], $error['severity'], self::name);
+                $outputModel->appendError($filePath, $errorModel);
+            }
         }
 
         return $outputModel;

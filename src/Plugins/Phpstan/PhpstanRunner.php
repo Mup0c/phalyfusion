@@ -40,6 +40,9 @@ class PhpstanRunner extends PluginRunner
     {
         $runCommand =  preg_replace('/\s--error-format(=|\s+?)(\'.*?\'|".*?"|\S+)/', '', $runCommand);
         $runCommand = $this->addOption($runCommand, '--error-format=json');
+        foreach ($paths as &$path) {
+            $path = "'$path'" ;
+        }
         $runCommand .= ' ' . implode(' ', $paths);
         return $runCommand;
     }
@@ -52,12 +55,15 @@ class PhpstanRunner extends PluginRunner
         $outputModel = new PluginOutputModel();
 
         $decoded = json_decode($output, true);
-        foreach ($decoded['files'] as $filePath => $errors)
+        if ($decoded)
         {
-            foreach ($errors['messages'] as $error)
+            foreach ($decoded['files'] as $filePath => $errors)
             {
-                $errorModel = new ErrorModel($error['line'], $error['message'], 'error', self::name);
-                $outputModel->appendError($filePath, $errorModel);
+                foreach ($errors['messages'] as $error)
+                {
+                    $errorModel = new ErrorModel($error['line'], $error['message'], 'error', self::name);
+                    $outputModel->appendError($filePath, $errorModel);
+                }
             }
         }
 
