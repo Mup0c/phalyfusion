@@ -15,7 +15,7 @@ use Phalyfusion\Plugins\PluginRunner;
 class PsalmRunner extends PluginRunner
 {
 
-    private const name = "psalm";
+    protected const name = "psalm";
 
     /**
      * PsalmRunner constructor.
@@ -23,14 +23,6 @@ class PsalmRunner extends PluginRunner
     public function __construct()
     {
         IOHandler::debug('Hello, Psalm!');
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public static function getName(): string
-    {
-        return self::name;
     }
 
     /**

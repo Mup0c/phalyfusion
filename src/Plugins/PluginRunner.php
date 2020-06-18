@@ -20,7 +20,10 @@ abstract class PluginRunner implements PluginRunnerInterface
      * Name of particular plugin
      * @return string
      */
-    abstract public static function getName(): string;
+    public static function getName(): string
+    {
+        return static::name;
+    }
 
     /**
      * Prepares given command. Makes output parseable.

@@ -15,7 +15,7 @@ use Phalyfusion\Plugins\PluginRunner;
 class PhanRunner extends PluginRunner
 {
 
-    private const name = "phan";
+    protected const name = "phan";
 
     /**
      * PhanRunner constructor.
@@ -23,14 +23,6 @@ class PhanRunner extends PluginRunner
     public function __construct()
     {
         IOHandler::debug('Hello, Phan!');
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public static function getName(): string
-    {
-        return self::name;
     }
 
     /**

@@ -15,7 +15,7 @@ use Phalyfusion\Plugins\PluginRunner;
 class PhpstanRunner extends PluginRunner
 {
 
-    private const name = "phpstan";
+    protected const name = "phpstan";
 
     /**
      * PhpstanRunner constructor.
@@ -23,14 +23,6 @@ class PhpstanRunner extends PluginRunner
     public function __construct()
     {
         IOHandler::debug('Hello, Phpstan!');
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public static function getName(): string
-    {
-        return self::name;
     }
 
     /**
