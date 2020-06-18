@@ -26,7 +26,10 @@ abstract class PluginRunner implements PluginRunnerInterface
     }
 
     /**
-     * Prepares given command. Makes output parseable.
+     * Prepares given command line for running the plugin.
+     * Adds 'paths to analyse' argument/option if it is provided to Phalyfusion.
+     * Removes/modifies arguments/options/flags of the commend line to make output nice and parseable
+     * and to avoid unwanted behavior of the plugin
      * @param string $runCommand
      * @param string[] $paths
      * @return string
