@@ -12,7 +12,7 @@ use Phalyfusion\Plugins\PluginRunnerInterface;
 /**
  * Class Core
  */
-class Core  #Инициализация (установка) плагинов (их конфигов) происходит средствами самих плагинов (обычно руками). php-ast руками??
+class Core
 {
 
     /**
@@ -79,7 +79,6 @@ class Core  #Инициализация (установка) плагинов (�
 
             if ($reflection->implementsInterface($interface)
                 && $reflection->isInstantiable()
-                #&& in_array(call_user_func($class.'::getName'), $this->usedPlugins)) // php call object method. //No. https://www.php.net/manual/en/language.oop5.static.php
                 && method_exists($class, 'getName') //suppress phpstorm inspection warning next line
                 && in_array($class::getName(), $this->usedPlugins))
             {
