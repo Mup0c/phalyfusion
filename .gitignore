@@ -2,6 +2,11 @@
 /vendor/
 /bin/
 
+.phan
+phalyfusion.neon
+psalm.xml
+phpstan.neon
+
 .DS_Store
 .idea
 .env
