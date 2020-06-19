@@ -43,7 +43,7 @@ Provide command lines to run stated analysers. Paths are resolved relative to cu
 - Note that each analyser (plugin) should be individually installed and configured.
 - All supported by individual plugins arguments and options can be used in the corresponding command line (runCommands)
 - Output formats of the analysers are overridden. To choose Phalyfusion output format use --format option when running.
-- File\path arguments of analysers are NOT guaranteed to be overriden in case you pass such argument to Phalyfusion.
+- File\path arguments of analysers are NOT guaranteed to be overridden in case you pass such argument to Phalyfusion.
 - Do not state path/files options/arguments in runCommands, use paths argument of Phalyfusion or configure it in configs.
 #### Running
 After configuring the tool and all used plugins run Phalyfusion:
