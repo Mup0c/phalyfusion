@@ -47,6 +47,7 @@ Provide command lines to run stated analysers. Paths are resolved relative to cu
 - Do not state path/files options/arguments in runCommands, use paths argument of Phalyfusion or configure it in configs.
 #### Running
 After configuring the tool and all used plugins run Phalyfusion:
+<br>
 `<path_to_bin>/phalyfusion analyse [options] [--] [<files>...]`
 <br><br>
 `analyse` is a default command, so it is optional to specify it. The simplest run command looks like:
