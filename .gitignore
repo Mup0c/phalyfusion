@@ -6,6 +6,8 @@
 phalyfusion.neon
 psalm.xml
 phpstan.neon
+.php_cs.cache
+
 
 .DS_Store
 .idea
