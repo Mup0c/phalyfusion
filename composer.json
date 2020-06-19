@@ -24,7 +24,8 @@
         "phan/phan": "^2.6",
         "vimeo/psalm": "3.9",
         "phpmd/phpmd": "^2.8",
-        "taptima/php-cs-fixer": "dev-master"
+        "taptima/php-cs-fixer": "dev-master",
+        "phpunit/phpunit": "^7.0"
     },
     "bin": [
         "phalyfusion"

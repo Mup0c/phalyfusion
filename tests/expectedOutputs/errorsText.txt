@@ -1,0 +1,36 @@
+
+ ~~ Phalyfusion! ~~ 
+====================
+
+ ------ --------- -------------------------------------------------------------------------------------------------------------------------------------------------------- 
+  Line   Plugin    /Users/admin/PhpstormProjects/php-analyzer-fusion/tests/sampleCodebase/sampleCore.php                                                                   
+ ------ --------- -------------------------------------------------------------------------------------------------------------------------------------------------------- 
+  11     phpstan   Property sampleCore::$plugins has unknown class PluginRunnerInterface as its type.                                                                      
+  11     psalm     Docblock-defined class or interface PluginRunnerInterface does not exist                                                                                
+  11     phan      UndefError PhanUndeclaredTypeProperty Property \sampleCore->plugins has undeclared type \PluginRunnerInterface[]                                        
+  62     psalm     Docblock-defined class or interface PluginOutputModel does not exist                                                                                    
+  64     phpstan   Return typehint of method sampleCore::runPlugins() has invalid type PluginOutputModel.                                                                  
+  64     phan      UndefError PhanUndeclaredTypeReturnType Return type of runPlugins() is undeclared type \PluginOutputModel[]                                             
+  68     phpstan   Call to static method getName() on an unknown class PluginRunnerInterface.                                                                              
+  68     psalm     Class or interface PluginRunnerInterface does not exist                                                                                                 
+  68     phan      UndefError PhanUndeclaredClassMethod Call to method getName from undeclared class \PluginRunnerInterface                                                
+  70     phpstan   Call to static method error() on an unknown class IOHandler.                                                                                            
+  70     phpmd     Avoid using static access to class 'IOHandler' in method 'runPlugins'.                                                                                  
+  70     phan      UndefError PhanUndeclaredClassMethod Call to method error from undeclared class \IOHandler                                                              
+  74     phan      UndefError PhanUndeclaredClassMethod Call to method run from undeclared class \PluginRunnerInterface                                                    
+  74     phpstan   Call to method run() on an unknown class PluginRunnerInterface.                                                                                         
+  85     phpstan   Call to static method createMap() on an unknown class ClassMapGenerator.                                                                                
+  85     phan      UndefError PhanUndeclaredClassMethod Call to method createMap from undeclared class \ClassMapGenerator                                                  
+  85     psalm     Class or interface ClassMapGenerator does not exist                                                                                                     
+  85     phpmd     Avoid using static access to class 'ClassMapGenerator' in method 'loadPlugins'.                                                                         
+  87     phan      UndefError PhanUndeclaredClassReference Reference to undeclared class \PluginRunnerInterface                                                            
+  87     phpstan   Class PluginRunnerInterface not found.                                                                                                                  
+  90     phpmd     Missing class import via use statement (line '90', column '35').                                                                                        
+  92     phan      UndefError PhanUndeclaredClassMethod Call to method error from undeclared class \IOHandler                                                              
+  92     phpstan   Call to static method error() on an unknown class IOHandler.                                                                                            
+  92     phpmd     Avoid using static access to class 'IOHandler' in method 'loadPlugins'.                                                                                 
+  100    phan      TypeError PhanTypeExpectedObjectOrClassName Expected an object instance or the name of a class but saw expression $class with type class-string|object  
+ ------ --------- -------------------------------------------------------------------------------------------------------------------------------------------------------- 
+
+ [ERROR] 25 errors found!                                                       
+
