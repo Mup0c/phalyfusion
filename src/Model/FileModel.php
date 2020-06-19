@@ -1,19 +1,15 @@
 <?php
 
-
 namespace Phalyfusion\Model;
-
 
 use JsonSerializable;
 
 /**
  * Class FileModel
  * Presenting error list for a file as an ErrorModel array.
- * @package Phalyfusion\Model
  */
 class FileModel implements JsonSerializable
 {
-
     /**
      * @var string
      */
@@ -22,14 +18,16 @@ class FileModel implements JsonSerializable
     /**
      * @var ErrorModel[]
      */
-    private array $errors = array();
+    private array $errors = [];
 
     /**
-     * @return string
+     * FileModel constructor.
+     *
+     * @param string $path
      */
-    public function getPath(): string
+    public function __construct(string $path)
     {
-        return $this->path;
+        $this->path = $path;
     }
 
     /**
@@ -41,11 +39,11 @@ class FileModel implements JsonSerializable
     }
 
     /**
-     * @return ErrorModel[]
+     * @return string
      */
-    public function getErrors(): array
+    public function getPath(): string
     {
-        return $this->errors;
+        return $this->path;
     }
 
     /**
@@ -57,6 +55,14 @@ class FileModel implements JsonSerializable
     }
 
     /**
+     * @return ErrorModel[]
+     */
+    public function getErrors(): array
+    {
+        return $this->errors;
+    }
+
+    /**
      * @param ErrorModel $errorModel
      */
     public function appendError(ErrorModel $errorModel): void
@@ -65,16 +71,7 @@ class FileModel implements JsonSerializable
     }
 
     /**
-     * FileModel constructor.
-     * @param string $path
-     */
-    public function __construct(string $path)
-    {
-        $this->path = $path;
-    }
-
-    /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function jsonSerialize()
     {

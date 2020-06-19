@@ -1,36 +1,25 @@
 <?php
 
-
 namespace Phalyfusion\Model;
-
 
 use JsonSerializable;
 
 /**
  * Class PluginOutputModel
- * Model presenting output of the plugin as FileModel for file path
- * @package Phalyfusion\Model
+ * Model presenting output of the plugin as FileModel for file path.
  */
 class PluginOutputModel implements JsonSerializable
 {
-
     /**
-     * $files = ['<fileName>' => FileModel]
+     * $files = ['<fileName>' => FileModel].
+     *
      * @var FileModel[]
      */
-    private array $files = array();
+    private array $files = [];
 
     /**
-     * $files = ['<fileName>' => FileModel]
-     * @return FileModel[]
-     */
-    public function getFiles(): array
-    {
-        return $this->files;
-    }
-
-    /**
-     * $files = ['<fileName>' => FileModel]
+     * $files = ['<fileName>' => FileModel].
+     *
      * @param FileModel[] $files
      */
     public function setFiles(array $files): void
@@ -39,7 +28,17 @@ class PluginOutputModel implements JsonSerializable
     }
 
     /**
-     * @param string $filePath
+     * $files = ['<fileName>' => FileModel].
+     *
+     * @return FileModel[]
+     */
+    public function getFiles(): array
+    {
+        return $this->files;
+    }
+
+    /**
+     * @param string     $filePath
      * @param ErrorModel $errorModel
      */
     public function appendError(string $filePath, ErrorModel $errorModel): void
@@ -53,14 +52,13 @@ class PluginOutputModel implements JsonSerializable
      */
     public function appendFileIfNotExists(string $filePath): void
     {
-        if (!array_key_exists($filePath, $this->files))
-        {
+        if (!array_key_exists($filePath, $this->files)) {
             $this->files[$filePath] = new FileModel($filePath);
         }
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function jsonSerialize()
     {

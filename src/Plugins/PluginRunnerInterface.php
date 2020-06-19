@@ -1,13 +1,11 @@
 <?php
 
-
 namespace Phalyfusion\Plugins;
 
 use Phalyfusion\Model\PluginOutputModel;
 
 /**
- * Interface PluginRunnerInterface
- * @package Phalyfusion\Plugins
+ * Interface PluginRunnerInterface.
  */
 interface PluginRunnerInterface
 {
@@ -17,10 +15,10 @@ interface PluginRunnerInterface
     public static function getName(): string;
 
     /**
-     * @param string $runCommand
-     * @param string[] $paths Paths with source code to run analysis on
+     * @param string   $runCommand
+     * @param string[] $paths      Paths with source code to run analysis on
+     *
      * @return PluginOutputModel
      */
     public function run(string $runCommand, array $paths): PluginOutputModel;
-
 }

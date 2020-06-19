@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Phalyfusion\Console\Command;
 
 use Nette\Neon\Exception as NeonException;
@@ -16,20 +15,20 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Class AnalyseCommand
- * Default and main command of the tool
- * @package Phalyfusion\Console\Command
+ * Default and main command of the tool.
  */
 class AnalyseCommand extends Command
 {
-
     /**
-     * Path to the root directory of the tool
+     * Path to the root directory of the tool.
+     *
      * @var string
      */
     private string $rootDir;
 
     /**
      * AnalyseCommand constructor.
+     *
      * @param string $rootDir
      */
     public function __construct(string $rootDir)
@@ -65,13 +64,16 @@ class AnalyseCommand extends Command
                 'files',
                 InputArgument::IS_ARRAY | InputArgument::OPTIONAL,
                 'Paths to files with source code to run analysis on. Separate multiple with a space. Do not pass directories. File paths from command lines stated in phalyfusion.neon runCommands will be used by default'
-            );
+            )
+        ;
     }
 
     /**
-     * Called on tool run
-     * @param InputInterface $input
+     * Called on tool run.
+     *
+     * @param InputInterface  $input
      * @param OutputInterface $output
+     *
      * @return int
      */
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -79,62 +81,64 @@ class AnalyseCommand extends Command
         IOHandler::initialize($input, $output);
 
         IOHandler::debug('CWD: ' . getcwd());
-        IOHandler::debug('ROOT: '. $this->rootDir);
+        IOHandler::debug('ROOT: ' . $this->rootDir);
 
-        $paths = IOHandler::$input->getArgument('files');
-        $config = $this->readConfig();
-        $usedPlugins = $config["plugins"]["usePlugins"];
-        $runCommands = $config["plugins"]["runCommands"];
+        $paths       = IOHandler::$input->getArgument('files');
+        $config      = $this->readConfig();
+        $usedPlugins = $config['plugins']['usePlugins'];
+        $runCommands = $config['plugins']['runCommands'];
 
-        if (!$usedPlugins)
-        {
-            IOHandler::error('One or more plugins should be used', "No plugins to use are stated in config");
+        if (!$usedPlugins) {
+            IOHandler::error('One or more plugins should be used', 'No plugins to use are stated in config');
             exit(1);
         }
 
         $core = new Core($this->rootDir, $usedPlugins, $runCommands, $paths);
-        switch (IOHandler::$input->getOption('format'))
-        {
+        switch (IOHandler::$input->getOption('format')) {
             case 'table':
                 OutputGenerator::tableOutput($core->runPlugins());
+
                 break;
             case 'json':
                 OutputGenerator::jsonOutput($core->runPlugins());
+
                 break;
             case 'checkstyle':
                 OutputGenerator::checkstyleOutput($core->runPlugins());
+
                 break;
             default:
                 $format = IOHandler::$input->getOption('format');
-                IOHandler::error("Output format $format not available. Use 'help analyse' to show available formats");
+                IOHandler::error("Output format {$format} not available. Use 'help analyse' to show available formats");
                 exit(1);
-
         }
 
         return 0;
     }
 
     /**
-     * Parse config file
+     * Parse config file.
+     *
      * @return array decoded Neon config
      */
     private function readConfig(): array
     {
         $configFile = IOHandler::$input->getOption('config');
-        if (!file_exists($configFile))
-        {
-            IOHandler::error("Config not found at $configFile");
+        if (!file_exists($configFile)) {
+            IOHandler::error("Config not found at {$configFile}");
             exit(1);
         }
         $neon = file_get_contents($configFile);
+
         try {
             $decoded = Neon::decode($neon);
         } catch (NeonException $e) {
-            IOHandler::error("Failed parsing config ($configFile)", $e);
+            IOHandler::error("Failed parsing config ({$configFile})", $e);
             exit(1);
         }
 
-        IOHandler::debug("CONFIG: $configFile");
+        IOHandler::debug("CONFIG: {$configFile}");
+
         return $decoded;
     }
 }

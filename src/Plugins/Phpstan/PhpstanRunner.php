@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Phalyfusion\Plugins\Phpstan;
 
 use Phalyfusion\Console\IOHandler;
@@ -9,13 +8,11 @@ use Phalyfusion\Model\PluginOutputModel;
 use Phalyfusion\Plugins\PluginRunner;
 
 /**
- * Class PhpstanRunner
- * @package Phalyfusion\Plugins\Phpstan
+ * Class PhpstanRunner.
  */
 class PhpstanRunner extends PluginRunner
 {
-
-    protected const name = "phpstan";
+    protected const name = 'phpstan';
 
     /**
      * PhpstanRunner constructor.
@@ -26,33 +23,31 @@ class PhpstanRunner extends PluginRunner
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function prepareCommand(string $runCommand, array $paths): string
     {
-        $runCommand =  preg_replace('/\s--error-format(=|\s+?)(\'.*?\'|".*?"|\S+)/', '', $runCommand);
+        $runCommand = preg_replace('/\s--error-format(=|\s+?)(\'.*?\'|".*?"|\S+)/', '', $runCommand);
         $runCommand = $this->addOption($runCommand, '--error-format=json');
         foreach ($paths as &$path) {
-            $path = "'$path'" ;
+            $path = "'{$path}'";
         }
         $runCommand .= ' ' . implode(' ', $paths);
+
         return $runCommand;
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function parseOutput(string $output): PluginOutputModel
     {
         $outputModel = new PluginOutputModel();
 
         $decoded = json_decode($output, true);
-        if ($decoded)
-        {
-            foreach ($decoded['files'] as $filePath => $errors)
-            {
-                foreach ($errors['messages'] as $error)
-                {
+        if ($decoded) {
+            foreach ($decoded['files'] as $filePath => $errors) {
+                foreach ($errors['messages'] as $error) {
                     $errorModel = new ErrorModel($error['line'], $error['message'], 'error', self::name);
                     $outputModel->appendError($filePath, $errorModel);
                 }
@@ -61,5 +56,4 @@ class PhpstanRunner extends PluginRunner
 
         return $outputModel;
     }
-
 }
