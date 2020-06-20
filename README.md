@@ -37,16 +37,16 @@ plugins:
         psalm:   "bin/psalm -c 'psalm.xml'"
         phpmd:    bin/phpmd src text cleancode
 ```
-Provide names of analysers you want to run in `usePlugins`. Choose from: `phan` `phpstan` `psalm` `phpmd`.
+Provide names of analysers (plugins) you want to use in `usePlugins`. Choose from: `phan` `phpstan` `psalm` `phpmd`.
 Provide command lines to run stated analysers. Paths are resolved relative to current working directory (the directory where from you are running Phalyfusion)
 
-- Note that each analyser (plugin) should be individually installed and configured.
-- All supported by individual plugins arguments and options can be used in the corresponding command line (runCommands)
+- Note that each analyser should be individually installed and configured.
+- All supported by individual analysers arguments and options can be used in the corresponding command line (runCommands)
 - Output formats of the analysers are overridden. To choose Phalyfusion output format use --format option when running.
 - File\path arguments of analysers are NOT guaranteed to be overridden in case you pass such argument to Phalyfusion.
 - Do not state path/files options/arguments in runCommands, use paths argument of Phalyfusion or configure it in configs.
 #### Running
-After configuring the tool and all used plugins run Phalyfusion:
+After configuring the tool and all used analysers run Phalyfusion:
 <br>
 `<path_to_bin>/phalyfusion analyse [options] [--] [<files>...]`
 <br><br>
