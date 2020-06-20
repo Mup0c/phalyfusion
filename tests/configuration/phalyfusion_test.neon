@@ -4,7 +4,6 @@ plugins:
         - phpstan
         - psalm
         - phpmd
-        - some_unsupported_or_missing_plugin
     runCommands:
         phan:    '../bin/phan -k configuration/phan_config_test.php --output-mode "not supported" '
         phpstan: ../bin/phpstan analyse -c configuration/phpstan_test.neon --error-format unsupported --level 7

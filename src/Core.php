@@ -77,8 +77,7 @@ class Core
             $pluginName = $plugin::getName();
             if (!array_key_exists($pluginName, $this->runCommands)) {
                 IOHandler::error("{$pluginName} run failed!", "No run command for {$pluginName} provided in config");
-
-                continue;
+                exit(1);
             }
             $output[] = $plugin->run($this->runCommands[$pluginName], $this->paths);
         }
@@ -107,7 +106,15 @@ class Core
                 && method_exists($class, 'getName') //suppress phpstorm inspection warning next line
                 && in_array($class::getName(), $this->usedPlugins)) {
                 $this->plugins[] = new $class();
+                //remove this plugin from usedPlugins to check later if usedPlugins empty.
+                unset($this->usedPlugins[array_search($class::getName(), $this->usedPlugins)]);
             }
+        }
+        if ($this->usedPlugins) {
+            $unsupportedPluginNames = implode(', ', $this->usedPlugins);
+            IOHandler::error('Phalyfusion run failed!',
+                             "Unsupported plugins stated in config: {$unsupportedPluginNames}");
+            exit(1);
         }
     }
 }
