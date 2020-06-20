@@ -32,7 +32,7 @@ plugins:
         - psalm
         - phpmd
     runCommands:
-        phan:    'bin/phan -k .phan/config.php   --output-mode "ot sos" '
+        phan:    'bin/phan -k .phan/config.php'
         phpstan:  bin/phpstan analyse -c phpstan.neon --level 7
         psalm:   "bin/psalm -c 'psalm.xml'"
         phpmd:    bin/phpmd src text cleancode
