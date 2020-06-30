@@ -115,7 +115,17 @@ class OutputGenerator
         $resultFiles = $resultModel->getFiles();
         foreach ($resultFiles as $fileModel) {
             $errors = $fileModel->getErrors();
-            usort($errors, fn (ErrorModel $a, ErrorModel $b) => $a->getLine() - $b->getLine());
+            usort($errors, function (ErrorModel $a, ErrorModel $b) {
+                if ($a->getLine() == $b->getLine()) {
+                    if ($a->getPluginName() == $b->getPluginName()) {
+                        return strcmp($a->getMessage(), $b->getMessage());
+                    }
+
+                    return strcmp($a->getPluginName(), $b->getPluginName());
+                }
+
+                return $a->getLine() - $b->getLine();
+            });
             $fileModel->setErrors($errors);
         }
         $resultModel->setFiles($resultFiles);

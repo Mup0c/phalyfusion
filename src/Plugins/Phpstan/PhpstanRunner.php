@@ -48,6 +48,11 @@ class PhpstanRunner extends PluginRunner
         if ($decoded) {
             foreach ($decoded['files'] as $filePath => $errors) {
                 foreach ($errors['messages'] as $error) {
+                    $prefix = getcwd() . '/';
+                    if (substr($filePath, 0, strlen($prefix)) == $prefix) {
+                        $filePath = substr($filePath, strlen($prefix));
+                    }
+
                     $errorModel = new ErrorModel($error['line'], $error['message'], 'error', self::name);
                     $outputModel->appendError($filePath, $errorModel);
                 }

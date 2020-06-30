@@ -47,7 +47,12 @@ class PsalmRunner extends PluginRunner
         $decoded = json_decode($output, true);
         if ($decoded) {
             foreach ($decoded as $error) {
-                $filePath   = $error['file_path'];
+                $prefix   = getcwd() . '/';
+                $filePath = $error['file_path'];
+                if (substr($filePath, 0, strlen($prefix)) == $prefix) {
+                    $filePath = substr($filePath, strlen($prefix));
+                }
+
                 $errorModel = new ErrorModel($error['line_from'], $error['message'], $error['severity'], self::name);
                 $outputModel->appendError($filePath, $errorModel);
             }

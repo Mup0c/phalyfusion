@@ -8,7 +8,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 $rootDir = __DIR__;
 
-$application = new Application('Phalyfusion', '0.0.1');
+$application = new Application('Phalyfusion', '1.0.0');
 $command = new AnalyseCommand($rootDir);
 
 $application->add($command);

@@ -15,7 +15,7 @@ class PluginOutputModel implements JsonSerializable
      *
      * @var FileModel[]
      */
-    private array $files = [];
+    private $files = [];
 
     /**
      * $files = ['<fileName>' => FileModel].

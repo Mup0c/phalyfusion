@@ -53,7 +53,7 @@ class PhanRunner extends PluginRunner
         $decoded = json_decode($output, true);
         if ($decoded) {
             foreach ($decoded as $error) {
-                $filePath   = getcwd() . '/' . $error['location']['path'];
+                $filePath   = $error['location']['path'];
                 $errorModel = new ErrorModel($error['location']['lines']['begin'], $error['description'],
                     $error['type'], self::name);
                 $outputModel->appendError($filePath, $errorModel);

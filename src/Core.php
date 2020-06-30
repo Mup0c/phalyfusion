@@ -17,35 +17,35 @@ class Core
     /**
      * @var PluginRunnerInterface[]
      */
-    private array $plugins;
+    private $plugins;
 
     /**
      * List of names of plugins to run.
      *
      * @var string[]
      */
-    private array $usedPlugins;
+    private $usedPlugins;
 
     /**
      * Run command for each plugin.
      *
      * @var string[]
      */
-    private array $runCommands;
+    private $runCommands;
 
     /**
      * Path to the root directory of the tool.
      *
      * @var string
      */
-    private string $rootDir;
+    private $rootDir;
 
     /**
      * Paths with source code to run analysis on.
      *
      * @var string[]
      */
-    private array $paths;
+    private $paths;
 
     /**
      * Core constructor.

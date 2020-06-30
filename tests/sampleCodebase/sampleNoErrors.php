@@ -3,9 +3,12 @@
 
 class sampleNoErrors
 {
-    private bool $a;
+    /**
+     * @var bool
+     */
+    private $a;
 
-    public function isA(): bool
+    public function getA(): bool
     {
         return $this->a;
     }

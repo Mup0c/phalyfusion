@@ -13,24 +13,24 @@ class ErrorModel implements JsonSerializable
     /**
      * @var int
      */
-    private int $line;
+    private $line;
 
     /**
      * @var string
      */
-    private string $message;
+    private $message;
 
     /**
      * @var string
      */
-    private string $type;
+    private $type;
 
     /**
      * Name of the plugin that generated this error.
      *
      * @var string
      */
-    private string $pluginName;
+    private $pluginName;
 
     /**
      * ErrorModel constructor.

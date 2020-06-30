@@ -24,7 +24,7 @@ class AnalyseCommand extends Command
      *
      * @var string
      */
-    private string $rootDir;
+    private $rootDir;
 
     /**
      * AnalyseCommand constructor.

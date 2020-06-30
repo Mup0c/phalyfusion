@@ -13,12 +13,12 @@ class FileModel implements JsonSerializable
     /**
      * @var string
      */
-    private string $path;
+    private $path;
 
     /**
      * @var ErrorModel[]
      */
-    private array $errors = [];
+    private $errors = [];
 
     /**
      * FileModel constructor.

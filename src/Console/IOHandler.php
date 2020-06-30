@@ -14,17 +14,17 @@ class IOHandler
     /**
      * @var InputInterface
      */
-    public static InputInterface $input;
+    public static $input;
 
     /**
      * @var OutputInterface
      */
-    public static OutputInterface $output;
+    public static $output;
 
     /**
      * @var SymfonyStyle
      */
-    public static SymfonyStyle $io;
+    public static $io;
 
     /**
      * @param InputInterface  $input
