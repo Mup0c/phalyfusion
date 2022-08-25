@@ -1,4 +1,5 @@
 # Phalyfusion
+## NOTE: This repository is the development history. See [taptima/phalyfusion] for the current version.
 
 Phalyfusion is a tool for convenient and effective usage of multiple PHP static code analysers.
 It runs analysers, combines its outputs and makes a single nice output in various formats:
@@ -73,3 +74,4 @@ make test
   [Phan]: https://github.com/phan/phan
   [Psalm]: https://github.com/vimeo/psalm
   [PHPMD]: https://github.com/phpmd/phpmd
+  [taptima/phalyfusion]: https://github.com/taptima/phalyfusion
